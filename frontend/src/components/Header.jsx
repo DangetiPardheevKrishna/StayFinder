@@ -15,6 +15,9 @@ import {
   Book,
   ClipboardList,
   BedDouble,
+  Cross,
+  CrossIcon,
+  X,
 } from "lucide-react";
 import { useContext } from "react";
 import AppContext from "../context/AuthContext.jsx";
@@ -72,7 +75,7 @@ export const Header = () => {
         }}
       /> */}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
@@ -227,7 +230,11 @@ export const Header = () => {
               onClick={() => setShowMobileMenu(!showMobileMenu)}
               className="md:hidden p-2 text-gray-600 hover:text-gray-900 mobile-menu-button"
             >
-              <Menu className="h-6 w-6" />
+              {showMobileMenu ? (
+                <X className="w-6 h-6 transition-transform duration-200 hover:rotate-90" />
+              ) : (
+                <Menu className="w-6 h-6 transition-transform duration-200 hover:scale-110" />
+              )}
             </button>
           </div>
         </div>
@@ -251,7 +258,7 @@ export const Header = () => {
               </div>
 
               {user ? (
-                <>
+                <div className="flex flex-col items-center">
                   <Link
                     to="/profile"
                     className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
@@ -290,14 +297,15 @@ export const Header = () => {
                   >
                     Wishlist
                   </Link>
-
-                  <button
-                    onClick={handleLogout}
-                    className="block w-full text-left text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
-                  >
-                    Logout
-                  </button>
-                </>
+                  <Link to="/" onClick={() => setShowMobileMenu(false)}>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
+                    >
+                      Logout
+                    </button>
+                  </Link>
+                </div>
               ) : (
                 <div className="space-y-2">
                   <Link to="/login">

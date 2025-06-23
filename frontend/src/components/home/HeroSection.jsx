@@ -34,10 +34,10 @@ const HeroSection = () => {
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl font-bold text-white mb-4">
             Find Your Perfect Stay
           </h1>
-          <p className="text-xl text-white/90 mb-6 max-w-2xl mx-auto">
+          <p className="text-md sm:text-xl text-white/90 mb-6 max-w-2xl mx-auto">
             Discover unique places to stay around the world with our curated
             selection of hotels
           </p>

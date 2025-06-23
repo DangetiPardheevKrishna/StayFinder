@@ -122,8 +122,8 @@ const Testimonials = () => {
 
   return (
     <section className="bg-gradient-to-b from-[#f9f9f9] to-[#f0f0f0] py-8 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-sm p-8 md:p-12 border border-gray-100 mb-8 md:mb-16">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-sm p-6 md:p-12 border border-gray-100 mb-8 md:mb-16">
           <div className="flex flex-col md:flex-row gap-8 md:gap-12">
             <div className="md:w-1/2">
               <div className="relative h-full min-h-[300px] rounded-xl overflow-hidden">
