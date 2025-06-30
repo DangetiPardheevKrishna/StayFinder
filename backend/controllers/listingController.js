@@ -1,12 +1,32 @@
 import Listing from "../models/listingModel.js";
 import { cloudinary } from "../lib/cloudinary.js";
+// const getListings = async (req, res) => {
+//   try {
+//     // Fetch listings from the database
+//     const listings = await Listing.find();
+//     return res.status(200).json({ listings, success: true });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
+
 const getListings = async (req, res) => {
   try {
-    // Fetch listings from the database
-    const listings = await Listing.find();
+    const { location } = req.query;
+
+    const query = {};
+
+    // Location filter (case-insensitive partial match)
+    if (location) {
+      query.location = { $regex: location, $options: "i" };
+    }
+
+    const listings = await Listing.find(query);
+
     return res.status(200).json({ listings, success: true });
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching listings:", error);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
@@ -15,7 +35,10 @@ const getListingById = async (req, res) => {
   const { id } = req.params;
   try {
     // Fetch a single listing by ID
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate(
+      "hostId",
+      "name profileImage  phone createdAt"
+    );
     console.log(listing);
     if (!listing) {
       return res
@@ -29,7 +52,23 @@ const getListingById = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+// const getListingById = async (req, res) => {
+//   try {
+//     const listing = await Listing.findById(req.params.id).populate(
+//       "hostId",
+//       "name profileImage createdAt"
+//     );
+//     console.log(listing);
+//     if (!listing) {
+//       return res.status(404).json({ message: "Listing not found" });
+//     }
 
+//     res.json(listing);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
 const createListing = async (req, res) => {
   try {
     const {

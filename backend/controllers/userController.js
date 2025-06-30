@@ -50,7 +50,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, password, gender } = req.body;
+  const { name, email, password, gender, role } = req.body;
 
   try {
     // Validate input
@@ -82,6 +82,7 @@ const register = async (req, res) => {
       password,
       profileImage,
       gender,
+      role,
     });
 
     await user.save();
@@ -97,7 +98,7 @@ const register = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-
+        role: user.role,
         profileImage: user.profileImage,
       },
     });
@@ -109,7 +110,7 @@ const register = async (req, res) => {
 
 const addlisting = async (req, res) => {
   try {
-    const { listingId, startDate, endDate, adults, specialRequests, userId } =
+    const { listingId, startDate, endDate, guests, specialRequests, userId } =
       req.body;
 
     // Fetch listing to calculate price
@@ -134,7 +135,7 @@ const addlisting = async (req, res) => {
       startDate,
       endDate,
       hostId: listing.hostId,
-      adults,
+      guests,
       listing,
       images: listing.images,
       specialRequests,

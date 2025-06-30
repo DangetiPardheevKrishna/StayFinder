@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import http from "http";
 import { connectDB } from "./lib/db.js";
-
+import adminRoutes from "./routes/adminRoutes.js";
 import authRoutes from "./routes/userRoutes.js";
 import listingRoutes from "./routes/listingRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 app.use("/api/user", authRoutes);
 app.use("/api/listings", listingRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/admin", adminRoutes);
 server.listen(PORT, () => {
   connectDB();
   console.log("Server is running on port 3000");

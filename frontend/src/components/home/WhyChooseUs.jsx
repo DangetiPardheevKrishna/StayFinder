@@ -7,8 +7,13 @@ import {
   Key,
   Star,
   StarIcon,
+  Calendar,
+  Users,
+  Home,
 } from "lucide-react";
-
+import { useState, useEffect, useRef } from "react";
+import CountUp from "./CountUp";
+import StatCard from "./StatCard";
 const WhyChooseUs = () => {
   const features = [
     {
@@ -44,13 +49,94 @@ const WhyChooseUs = () => {
       description: "Secure your stay instantly with real-time availability.",
     },
   ];
+  // const trustStats = [
+  //   {
+  //     icon: <Shield className="w-6 h-6" />,
+  //     value: "10,000+",
+  //     label: "Verified Stays",
+  //   },
+  //   { icon: <Globe className="w-6 h-6" />, value: "120+", label: "Countries" },
+  //   {
+  //     icon: <Heart className="w-6 h-6" />,
+  //     value: "98%",
+  //     label: "Satisfaction",
+  //   },
+  //   {
+  //     icon: <Users className="w-6 h-6" />,
+  //     value: "50,000+",
+  //     label: "Happy Guests",
+  //   },
+  //   { icon: <Calendar className="w-6 h-6" />, value: "24/7", label: "Support" },
+  // ];
+  const [counted, setCounted] = useState(false);
+  const componentRef = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  const trustStats = [
+    {
+      icon: <Globe className="w-5 h-5 md:w-6 md:h-6 text-[#ff385c]" />,
+      value: 120,
+      suffix: "+",
+      label: "Countries Available",
+      duration: 2.0,
+    },
+    {
+      icon: <Home className="w-5 h-5 md:w-6 md:h-6 text-[#ff385c]" />,
+      value: 500000,
+      suffix: "+",
+      label: "Properties Listed",
+      duration: 2.5,
+    },
+    {
+      icon: <Users className="w-5 h-5 md:w-6 md:h-6 text-[#ff385c]" />,
+      value: 10,
+      suffix: "M+",
+      label: "Happy Travelers",
+      duration: 3.0,
+    },
+    {
+      icon: <Star className="w-5 h-5 md:w-6 md:h-6 text-[#ff385c]" />,
+      value: 4.9,
+      suffix: "/5",
+      label: "Average Rating",
+      duration: 1.5,
+    },
+    {
+      icon: <Heart className="w-5 h-5 md:w-6 md:h-6 text-[#ff385c]" />,
+      value: 98,
+      suffix: "%",
+      label: "Customer Satisfaction",
+      duration: 1.8,
+    },
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.2 } // Trigger when 20% of component is visible
+    );
+
+    if (componentRef.current) {
+      observer.observe(componentRef.current);
+    }
+
+    return () => {
+      if (componentRef.current) {
+        observer.unobserve(componentRef.current);
+      }
+    };
+  }, [hasAnimated]);
 
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-[#111111] mb-4">
-            Why <span className="text-[#ff385c]">StayFinder</span> Stands Out
+            Why <span className="text-[#ff385c]">StayFindz</span> Stands Out
           </h2>
           <p className="text-lg text-[#717171] max-w-3xl mx-auto">
             We redefine travel by focusing on what really matters—authentic
@@ -78,7 +164,7 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Trust Badges */}
-        <div className="mt-16 flex flex-wrap justify-center gap-6 items-center">
+        {/* <div className="mt-16 flex flex-wrap justify-center gap-6 items-center">
           <div className="text-center px-6 py-3 bg-[#f7f7f7] rounded-lg">
             <p className="text-sm text-[#717171]">
               Rated <strong className="text-[#ff385c]">4.9/5</strong> stars
@@ -101,6 +187,43 @@ const WhyChooseUs = () => {
             <p className="text-sm text-[#717171]">
               <strong className="text-[#ff385c]">24/7</strong> customer support
             </p>
+          </div>
+        </div> */}
+        {/* <div className="mt-16 bg-white rounded-xl md:rounded-2xl shadow-sm p-6 md:p-8 border border-gray-100">
+          <h3 className="text-xl md:text-2xl font-bold text-center text-gray-900 mb-8 md:mb-12">
+            "Every journey finds its home with{" "}
+            <span className="text-[#ff385c]">StayFinder</span>"
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+            {trustStats.map((stat, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center p-3 md:p-4 group hover:bg-[#ff385c]/5 rounded-lg transition-colors"
+              >
+                <div className="p-2 md:p-3 bg-[#ff385c]/10 rounded-full mb-3 md:mb-4 group-hover:bg-[#ff385c]/20 transition-colors">
+                  {stat.icon}
+                </div>
+                <p className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
+                  {stat.value}
+                </p>
+                <p className="text-xs md:text-sm text-gray-500">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div> */}
+        <div
+          ref={componentRef}
+          className="mt-16 bg-white rounded-xl md:rounded-2xl shadow-sm p-6 md:p-8 border border-gray-100"
+        >
+          <h3 className="text-xl md:text-2xl font-bold text-center text-gray-900 mb-8 md:mb-12">
+            "Every journey finds its home with{" "}
+            <span className="text-[#ff385c]">StayFindz</span>"
+          </h3>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+            {trustStats.map((stat, index) => (
+              <StatCard key={index} stat={stat} shouldAnimate={hasAnimated} />
+            ))}
           </div>
         </div>
       </div>

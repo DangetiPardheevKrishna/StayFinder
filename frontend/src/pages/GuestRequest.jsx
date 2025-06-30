@@ -9,6 +9,7 @@ import {
   MapPin,
   Ban,
   BadgeCheck,
+  Users,
 } from "lucide-react";
 
 import { Socket } from "socket.io-client";
@@ -159,6 +160,18 @@ const GuestRequest = () => {
                                 day: "numeric",
                                 year: "numeric",
                               })}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5 p-1 bg-gray-100 rounded-full">
+                            <Users className="w-4 h-4 text-gray-500" />
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-xs">Guests</p>
+                            <p className="font-medium text-gray-800">
+                              {booking.guests || 1}{" "}
+                              {booking.guests === 1 ? "guest" : "guests"}
                             </p>
                           </div>
                         </div>

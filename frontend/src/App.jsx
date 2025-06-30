@@ -16,6 +16,7 @@ import HostDashboard from "./pages/HostDashboard.jsx";
 import GuestRequest from "./pages/GuestRequest.jsx";
 import ListingsPage from "./pages/ListingsPage.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import BecomeHost from "./pages/BecomeHost.jsx";
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/host/edit-listing/:id" element={<EditListing />} />
           <Route path="/host/guest-booking" element={<GuestRequest />} />
           <Route path="/host/dashboard" element={<HostDashboard />} />
+          <Route path="/becomehost" element={<BecomeHost />} />
         </Routes>
       </main>
       <Footer />

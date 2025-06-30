@@ -7,32 +7,58 @@ import useListings from "../hooks/useListings.js";
 
 export default function ListingsPage() {
   const [searchParams] = useSearchParams();
+  console.log(searchParams);
   //const [listings, setListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
   // const [loading, setLoading] = useState(true);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [activeFilters, setActiveFilters] = useState({});
   const { listings, getListings, loading } = useListings();
+  console.log(activeFilters);
   useEffect(() => {
-    getListings();
-
-    // Initialize filters from URL params
-    const initialFilters = {};
     const location = searchParams.get("location");
+    const query = location ? `?location=${encodeURIComponent(location)}` : "";
+    getListings(query);
+
+    const initialFilters = {};
+    if (location) initialFilters.location = location;
     const minPrice = searchParams.get("minPrice");
     const maxPrice = searchParams.get("maxPrice");
     const guests = searchParams.get("guests");
-
-    if (location) initialFilters.location = location;
     if (minPrice) initialFilters.minPrice = parseInt(minPrice);
     if (maxPrice) initialFilters.maxPrice = parseInt(maxPrice);
     if (guests) initialFilters.guests = parseInt(guests);
 
-    if (Object.keys(initialFilters).length > 0) {
-      setActiveFilters(initialFilters);
-    }
+    setActiveFilters(initialFilters);
   }, [searchParams]);
+  // useEffect(() => {
+  //   getListings();
 
+  //   // Initialize filters from URL params
+  //   const initialFilters = {};
+  //   const location = searchParams.get("location");
+  //   const minPrice = searchParams.get("minPrice");
+  //   const maxPrice = searchParams.get("maxPrice");
+  //   const guests = searchParams.get("guests");
+
+  //   if (location) initialFilters.location = location;
+  //   if (minPrice) initialFilters.minPrice = parseInt(minPrice);
+  //   if (maxPrice) initialFilters.maxPrice = parseInt(maxPrice);
+  //   if (guests) initialFilters.guests = parseInt(guests);
+
+  //   if (Object.keys(initialFilters).length > 0) {
+  //     setActiveFilters(initialFilters);
+  //   }
+  // }, [searchParams]);
+  // useEffect(() => {
+  //   const location = searchParams.get("location");
+  //   const query = location ? `?location=${encodeURIComponent(location)}` : "";
+  //   getListings(query);
+
+  //   const initialFilters = {};
+  //   if (location) initialFilters.location = location;
+  //   setActiveFilters(initialFilters);
+  // }, [searchParams]);
   useEffect(() => {
     if (listings.length > 0 && filteredListings.length === 0) {
       // Apply any active filters to the newly loaded listings
@@ -52,6 +78,9 @@ export default function ListingsPage() {
   };
 
   const applyFilters = (filters) => {
+    // const location = searchParams.get("location");
+    // const query = location ? `?location=${encodeURIComponent(location)}` : "";
+    // getListings(query); // Re-fetch listings with location applied from backend
     let filtered = [...listings];
 
     // Search filter
@@ -64,7 +93,7 @@ export default function ListingsPage() {
       );
     }
 
-    // Location filter
+    //Location filter
     if (filters.location) {
       filtered = filtered.filter((listing) =>
         listing.location.toLowerCase().includes(filters.location.toLowerCase())

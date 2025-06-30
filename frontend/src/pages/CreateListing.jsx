@@ -222,7 +222,7 @@ export default function CreateListing() {
               Create New Listing
             </h1>
             <p className="text-gray-600 mb-6">
-              Fill out the form below to list your property on StayFinder
+              Fill out the form below to list your property on StayFindz
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-8">

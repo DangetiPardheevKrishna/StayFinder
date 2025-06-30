@@ -23,7 +23,7 @@ const MyBooking = () => {
   const [listings, setListings] = useState([]);
   const navigate = useNavigate();
   const { socket } = useSocketContext();
-
+  console.log(userListings);
   useEffect(() => {
     setListings(userListings);
   }, [userListings]);
@@ -191,7 +191,7 @@ const MyBooking = () => {
                           <h4 className="font-medium text-gray-900 truncate">
                             {" "}
                             {/* Added truncate for long titles */}
-                            {booking.listing.title}
+                            {booking.listing?.title}
                           </h4>
                           <div className="flex items-center mt-1 text-sm text-gray-500">
                             <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />{" "}
@@ -199,7 +199,7 @@ const MyBooking = () => {
                             <span className="truncate">
                               {" "}
                               {/* Added truncate for long locations */}
-                              {booking.listing.location || "City, Country"}
+                              {booking.listing?.location || "City, Country"}
                             </span>
                           </div>
                         </div>
@@ -250,7 +250,7 @@ const MyBooking = () => {
 
                       {/* Amenities - Only show on larger screens */}
                       <div className="mt-3 hidden sm:flex flex-wrap gap-2">
-                        {Object.entries(booking.listing.amenities || {})
+                        {Object.entries(booking.listing?.amenities || {})
                           .filter(([_, value]) => value)
                           .map(([key]) => (
                             <span

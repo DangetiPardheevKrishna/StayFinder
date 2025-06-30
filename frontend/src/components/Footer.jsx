@@ -25,7 +25,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-5">
             <h3 className="text-2xl font-bold text-white">
-              <span className="text-[#ff385c]">Stay</span>Finder
+              <span className="text-[#ff385c]">Stay</span>Findz
             </h3>
             <p className="text-[#a3a3a3] text-sm leading-relaxed flex items-start">
               <MapPin className="w-4 h-4 mt-1 mr-2 flex-shrink-0" />
@@ -166,7 +166,7 @@ const Footer = () => {
         <div className="border-t border-[#2a2a2a] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-[#6b6b6b] text-sm mb-4 md:mb-0 flex items-center">
             <Calendar className="w-4 h-4 mr-2" />© {new Date().getFullYear()}{" "}
-            StayFinder, Inc.
+            StayFindz, Inc.
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {["Privacy", "Terms", "Sitemap", "Cookies"].map((item) => (

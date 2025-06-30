@@ -191,7 +191,7 @@ const Profile = () => {
                 <h1 className="text-3xl font-bold">{user?.name}</h1>
                 <p className="text-teal-100 text-lg">{user?.email}</p>
                 <div className="flex items-center space-x-2 mt-2">
-                  {/* <span
+                  <span
                     className={`px-3 py-1 rounded-full text-sm font-medium ${
                       user?.role === "host"
                         ? "bg-yellow-400 text-yellow-900"
@@ -199,10 +199,10 @@ const Profile = () => {
                     }`}
                   >
                     {user?.role === "host" ? "Host" : "Guest"}
-                  </span> */}
-                  <span className="px-3 py-1 rounded-full text-sm font-medium bg-yellow-400 text-yellow-900">
-                    Host
                   </span>
+                  {/* <span className="px-3 py-1 rounded-full text-sm font-medium bg-yellow-400 text-yellow-900">
+                    Host
+                  </span> */}
                 </div>
               </div>
             </div>

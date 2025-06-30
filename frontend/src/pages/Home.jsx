@@ -67,6 +67,14 @@ const Home = () => {
       });
     }
   }, [location, navigate, hostingRef]);
+  console.log("currentListings", currentListings);
+  console.log(
+    "Pune listings:",
+    currentListings.filter(
+      (listing) =>
+        listing.location && listing.location.toLowerCase().includes("pune")
+    )
+  );
   const CardLoading = () => {
     return (
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden animate-pulse hover:shadow-md transition-all">
@@ -137,6 +145,60 @@ const Home = () => {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              Popular Locations in Pune{" "}
+              <span className="text-[#ff385c]">.</span>
+            </h2>
+            <p className="text-gray-600 mt-1 text-sm md:text-base">
+              Discover amazing places in Pune for your next adventure
+            </p>
+          </div>
+          <Link
+            to="/all-listings?location=Pune"
+            className="text-red-500 hover:text-red-700 font-medium text-sm md:text-base whitespace-nowrap flex items-center gap-1"
+          >
+            View All Properties in Pune
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
+          {loading
+            ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
+            : listings
+                .filter(
+                  (listing) =>
+                    listing.location &&
+                    listing.location.toLowerCase().includes("pune")
+                )
+                .map((listing) => (
+                  <PropertyCard
+                    key={listing._id}
+                    listing={listing}
+                    wishlist={wishlist}
+                    toggleWishlist={toggleWishlist}
+                  />
+                ))}
+        </div>
+      </div>
+      <div className="mx-auto px-4 md:px-6 lg:px-8 py-8 w-full md:w-10/12">
+        {/* Heading section with View All link */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
               Popular Destinations <span className="text-[#ff385c]">.</span>
             </h2>
             <p className="text-gray-600 mt-1 text-sm md:text-base">
@@ -166,7 +228,7 @@ const Home = () => {
         </div>
 
         {/* Grid Container */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
           {loading
             ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
             : currentListings.map((listing) => (
@@ -183,8 +245,8 @@ const Home = () => {
       <WhyChooseUs />
       <DestinationHighlights />
       <Testimonials />
-      <HostBenefits />
-      <div
+      {/* <HostBenefits /> */}
+      {/* <div
         ref={hostingRef}
         id="hosting-section"
         className=" bg-gradient-to-r from-red-600 via-red-500 to-red-700 py-16"
@@ -192,7 +254,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white">
             <h2 className="text-3xl  font-bold mb-4">
-              Become a StayFinder host
+              Become a StayFindz host
             </h2>
             <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
               Turn your extra space into extra income. Join thousands of hosts
@@ -229,7 +291,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -53,33 +53,37 @@ const useListings = () => {
   const { backendUrl, token } = useContext(AppContext);
 
   // Memoize the function to prevent unnecessary recreations
-  const getListings = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  const getListings = useCallback(
+    async (query = "") => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const { data } = await axios.get(`${backendUrl}/api/listings`);
+      try {
+        const { data } = await axios.get(`${backendUrl}/api/listings${query}`);
 
-      if (data.success) {
-        setListings(data.listings);
-      } else {
-        throw new Error(data.message || "Failed to fetch listings");
+        if (data.success) {
+          console.log(data.listings);
+          setListings(data.listings);
+        } else {
+          throw new Error(data.message || "Failed to fetch listings");
+        }
+      } catch (err) {
+        const errorMessage = err.response?.data?.message || err.message;
+        setError(errorMessage);
+        toast.error(errorMessage);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      const errorMessage = err.response?.data?.message || err.message;
-      setError(errorMessage);
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  }, [backendUrl, token]);
+    },
+    [backendUrl, token]
+  );
 
   // Fetch listings on mount and when dependencies change
-  useEffect(() => {
-    if (token) {
-      getListings();
-    }
-  }, [getListings, token]); // Now depends on memoized function
+  // useEffect(() => {
+  //   if (token) {
+  //     getListings();
+  //   }
+  // }, [getListings, token]); // Now depends on memoized function
 
   return { listings, loading, error, getListings };
 };

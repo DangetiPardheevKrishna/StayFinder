@@ -13,6 +13,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     gender: "", // Added gender field
+    role: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -26,11 +27,12 @@ const SignUp = () => {
     setLoading(true);
 
     if (
-      !formData.name ||
-      !formData.email ||
-      !formData.password ||
-      !formData.confirmPassword ||
-      !formData.gender // Added gender validation
+      (!formData.name ||
+        !formData.email ||
+        !formData.password ||
+        !formData.confirmPassword ||
+        !formData.gender, // Added gender validation
+      !formData.role)
     ) {
       setError("Please fill in all fields");
       setLoading(false);
@@ -146,7 +148,7 @@ const SignUp = () => {
             </div>
 
             {/* Role Selection */}
-            {/* <div>
+            <div>
               <label
                 htmlFor="role"
                 className="block text-sm font-medium text-gray-700 mb-2"
@@ -163,7 +165,7 @@ const SignUp = () => {
                 <option value="user">Find places to stay (Guest)</option>
                 <option value="host">List my property (Host)</option>
               </select>
-            </div> */}
+            </div>
 
             {/* Password Fields */}
             <div>

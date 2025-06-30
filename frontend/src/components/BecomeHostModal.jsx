@@ -109,9 +109,7 @@ const BecomeHostModal = ({ isOpen, onClose }) => {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
               <Home className="h-8 w-8" />
             </div>
-            <h2 className="text-3xl font-bold mb-2">
-              Become a StayFinder Host
-            </h2>
+            <h2 className="text-3xl font-bold mb-2">Become a StayFindz Host</h2>
             <p className="text-teal-100 text-lg">
               Turn your space into an income stream and join millions of hosts
               worldwide
@@ -137,7 +135,7 @@ const BecomeHostModal = ({ isOpen, onClose }) => {
 
         <div className="p-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Why host with StayFinder?
+            Why host with StayFindz?
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

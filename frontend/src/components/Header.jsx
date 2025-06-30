@@ -29,13 +29,21 @@ export const Header = () => {
   const { token, user, setToken, setUser } = useContext(AppContext);
 
   const { wishlist } = useWishlist(token);
+  console.log(wishlist);
   // const { getWishlist } = useWishlist();
   // const [showHostModal, setShowHostModal] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
+  const navigate = useNavigate();
+  const [location, setLocation] = useState("");
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!location.trim()) return;
+    navigate(`/all-listings?location=${encodeURIComponent(location.trim())}`);
+  };
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -63,8 +71,6 @@ export const Header = () => {
     setShowUserMenu(false);
   };
 
-  const navigate = useNavigate();
-
   return (
     <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
       {/* <BecomeHostModal
@@ -80,20 +86,33 @@ export const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <Home className="h-8 w-8 text-red-500" />
-            <span className="text-xl font-bold text-gray-900">StayFinder</span>
+            <span className="text-xl font-bold text-gray-900">StayFindz</span>
           </Link>
 
           {/* Search Bar - Hidden on mobile */}
-          <div className="hidden md:flex flex-1 max-w-lg mx-8">
+          {/* <div className="hidden md:flex flex-1 max-w-lg mx-8">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <input
-                onClick={() => navigate("/all-listings")}
+                onClick={handleSearch}
                 type="text"
+                onChange={(e) => setLocation(e.target.value)}
                 placeholder="Search destinations..."
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-gray-50"
               />
             </div>
+          </div> */}
+          <div className="hidden md:flex flex-1 max-w-lg mx-8">
+            <form onSubmit={handleSearch} className="relative w-full">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Search destinations..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-gray-50"
+              />
+            </form>
           </div>
 
           {/* Desktop Navigation */}
@@ -120,13 +139,23 @@ export const Header = () => {
                   </div> */}
                 </div>
 
-                <Link
-                  to="/host/create-listing"
-                  className="flex items-center space-x-1 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-hover transition-colors"
-                >
-                  <PlusCircle className="h-4 w-4" />
-                  <span>Add Listing</span>
-                </Link>
+                {user.role == "user" ? (
+                  <Link
+                    to="/becomehost"
+                    // onClick={handleClick}
+                    className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm  hover:bg-gray-100 focus:ring-gray-500  inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none"
+                  >
+                    Become a Host
+                  </Link>
+                ) : (
+                  <Link
+                    to="/host/create-listing"
+                    className="flex items-center space-x-1 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-hover transition-colors"
+                  >
+                    <PlusCircle className="h-4 w-4" />
+                    <span>Add Listing</span>
+                  </Link>
+                )}
                 {/* ) : (
                   <Link
                     to="/"
@@ -138,12 +167,14 @@ export const Header = () => {
                   </Link>
                 )} */}
 
-                <Link
-                  to="/host/dashboard"
-                  className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm hover:bg-gray-100 focus:ring-gray-500  inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none"
-                >
-                  Host Dashboard
-                </Link>
+                {user.role == "host" && (
+                  <Link
+                    to="/host/dashboard"
+                    className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm hover:bg-gray-100 focus:ring-gray-500  inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none"
+                  >
+                    Host Dashboard
+                  </Link>
+                )}
 
                 <div className="relative " ref={dropdownRef}>
                   <button
@@ -168,15 +199,16 @@ export const Header = () => {
                         <User className="inline h-4 w-4 mr-2" />
                         Profile
                       </Link>
-
-                      <Link
-                        to="/host/guest-booking"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        onClick={() => setShowUserMenu(false)}
-                      >
-                        <BedDouble className="inline h-4 w-4 mr-2" />
-                        Guest Bookings
-                      </Link>
+                      {user.role == "host" && (
+                        <Link
+                          to="/host/guest-booking"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          <BedDouble className="inline h-4 w-4 mr-2" />
+                          Guest Bookings
+                        </Link>
+                      )}
 
                       <Link
                         to="/bookings"
@@ -266,21 +298,25 @@ export const Header = () => {
                   >
                     Profile
                   </Link>
-                  <Link
-                    to="/host/dashboard"
-                    className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    Host Dashboard
-                  </Link>
+                  {user.role == "host" && (
+                    <>
+                      <Link
+                        to="/host/dashboard"
+                        className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
+                        onClick={() => setShowMobileMenu(false)}
+                      >
+                        Host Dashboard
+                      </Link>
 
-                  <Link
-                    to="/host/guest-booking"
-                    className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    Guest Bookings
-                  </Link>
+                      <Link
+                        to="/host/guest-booking"
+                        className="block text-gray-600 hover:text-gray-900 py-2 text-sm font-medium"
+                        onClick={() => setShowMobileMenu(false)}
+                      >
+                        Guest Bookings
+                      </Link>
+                    </>
+                  )}
 
                   <Link
                     to="/bookings"

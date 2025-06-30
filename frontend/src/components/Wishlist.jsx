@@ -7,16 +7,22 @@ import useListings from "../hooks/useListings.js";
 import useWishlist from "../hooks/useWishlist.js";
 import AppContext from "../context/AuthContext.jsx";
 import TailSpinLoader from "./Loader.jsx";
+import { useEffect } from "react";
 
 const Wishlist = () => {
-  const { listings } = useListings();
+  const { listings, getListings } = useListings();
   const { token } = useContext(AppContext);
   const { wishlist, loading } = useWishlist(token);
-
+  console.log(listings);
+  console.log(wishlist);
+  useEffect(() => {
+    getListings();
+  }, []);
   const wishlistListings = listings.filter((listing) =>
     wishlist?.includes(listing._id)
   );
-
+  console.log(wishlistListings);
+  console.log(loading);
   if (loading)
     return (
       <div className="h-screen flex items-center justify-center ">

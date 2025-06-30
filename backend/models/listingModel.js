@@ -40,7 +40,7 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-
+    isActive: { type: Boolean, default: true },
     amenities: {
       wifi: { type: Boolean, default: false },
       kitchen: { type: Boolean, default: false },

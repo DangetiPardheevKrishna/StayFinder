@@ -20,7 +20,7 @@ const Testimonials = () => {
     {
       id: 1,
       quote:
-        "StayFinder helped me discover a hidden gem in Bali. The host verification gave me peace of mind as a solo traveler.",
+        "StayFindz helped me discover a hidden gem in Bali. The host verification gave me peace of mind as a solo traveler.",
       author: "Sophia L.",
       role: "Solo Traveler",
       rating: 5,
@@ -32,7 +32,7 @@ const Testimonials = () => {
     {
       id: 2,
       quote:
-        "As a host, I've increased my bookings by 60% using StayFinder's smart pricing tools. The dashboard is incredibly intuitive.",
+        "As a host, I've increased my bookings by 60% using StayFindz's smart pricing tools. The dashboard is incredibly intuitive.",
       author: "Miguel R.",
       role: "Superhost",
       rating: 5,
@@ -44,7 +44,7 @@ const Testimonials = () => {
     {
       id: 3,
       quote:
-        "Found the perfect pet-friendly cabin through StayFinder's advanced filters. Our golden retriever loved it as much as we did!",
+        "Found the perfect pet-friendly cabin through StayFindz's advanced filters. Our golden retriever loved it as much as we did!",
       author: "The Chen Family",
       role: "Pet Owners",
       rating: 4,
@@ -199,13 +199,6 @@ const Testimonials = () => {
                   </div>
                 </li>
               </ul>
-
-              <button
-                onClick={() => navigate("/all-listings")}
-                className="mt-8 px-6 py-3 bg-[#ff385c] text-white rounded-lg font-medium hover:bg-[#e03148] transition-colors shadow-sm hover:shadow-md"
-              >
-                Discover the Difference
-              </button>
             </div>
           </div>
         </div>
@@ -331,7 +324,7 @@ const Testimonials = () => {
         </div>
 
         {/* Trust Indicators */}
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-sm p-6 md:p-8 border border-gray-100">
+        {/* <div className="bg-white rounded-xl md:rounded-2xl shadow-sm p-6 md:p-8 border border-gray-100">
           <h3 className="text-xl md:text-2xl font-bold text-center text-gray-900 mb-8 md:mb-12">
             "Every journey finds its home with{" "}
             <span className="text-[#ff385c]">StayFinder</span>"
@@ -352,7 +345,7 @@ const Testimonials = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

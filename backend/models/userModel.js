@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       required: true,
     },
-    // role: {
-    //   type: String,
-    //   enum: ["user", "host"],
-    //   default: "user",
-    // },
+    role: {
+      type: String,
+      enum: ["user", "host"],
+      default: "user",
+    },
     gender: { type: String, enum: ["male", "female"] },
     profileImage: {
       type: String,

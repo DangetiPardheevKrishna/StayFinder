@@ -23,6 +23,7 @@ import {
   ArrowLeft,
   Heart,
 } from "lucide-react";
+import { Home, Layers } from "lucide-react";
 import BookingWidget from "../components/BookingWidget";
 import { Calendar } from "../components/ui/Calender";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,6 +35,8 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import TailSpinLoader from "../components/Loader";
 import MapView from "../components/MapView";
 import useWishlist from "../hooks/useWishlist";
+import HostInfo from "../components/listing/HostInfo";
+import ImageGallery from "../components/listing/ImageGallery";
 const Listing = () => {
   const { user } = useContext(AppContext);
   const { token } = useContext(AppContext);
@@ -60,7 +63,8 @@ const Listing = () => {
 
     fetchListing();
   }, [id]);
-
+  //const host = listing.hostId;
+  console.log(listing);
   if (loading && !listing)
     return (
       <div className="flex justify-center items-center h-screen">
@@ -132,7 +136,8 @@ const Listing = () => {
           {/* Left Column - Details */}
           <div className="lg:col-span-2">
             {/* ⛱️ Image Carousel */}
-            <div className="mb-8 rounded-xl overflow-hidden">
+            <ImageGallery images={listing.images} />
+            {/* <div className="mb-8 rounded-xl overflow-hidden">
               <Carousel
                 showThumbs={false}
                 autoPlay
@@ -150,7 +155,47 @@ const Listing = () => {
                   </div>
                 ))}
               </Carousel>
+            </div> */}
+
+            <div className="mt-6 mb-4 space-y-3">
+              <h2 className="text-2xl font-bold text-gray-900">
+                Entire apartment in{" "}
+                <span className="text-[#ff385c]">{listing.location}</span>
+              </h2>
+
+              <div className="flex flex-wrap items-center gap-4 text-gray-700">
+                <div className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-gray-500" />
+                  <span>
+                    {listing.guests} {listing.guests === 1 ? "guest" : "guests"}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Bed className="h-5 w-5 text-gray-500" />
+                  <span>
+                    {listing.bedrooms}{" "}
+                    {listing.bedrooms === 1 ? "bedroom" : "bedrooms"}
+                  </span>
+                </div>
+
+                {/* <div className="flex items-center gap-2">
+                  <Layers className="h-5 w-5 text-gray-500" />
+                  <span>
+                    {listing.beds} {listing.beds === 1 ? "bed" : "beds"}
+                  </span>
+                </div> */}
+
+                <div className="flex items-center gap-2">
+                  <Bath className="h-5 w-5 text-gray-500" />
+                  <span>
+                    {listing.bathrooms}{" "}
+                    {listing.bathrooms === 1 ? "bathroom" : "bathrooms"}
+                  </span>
+                </div>
+              </div>
             </div>
+            <HostInfo host={listing.hostId} />
             {/* Property Highlights */}
             <div className="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
               <h2 className="text-2xl font-bold mb-4">About this property</h2>
@@ -187,7 +232,6 @@ const Listing = () => {
                 </div>
               </div>
             </div>
-
             {/* Amenities */}
             <div className="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-100">
               <h2 className="text-2xl font-bold mb-4">Amenities</h2>
@@ -230,7 +274,6 @@ const Listing = () => {
                 )}
               </div>
             </div>
-
             {/* House Rules */}
             <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
               <h2 className="text-2xl font-bold mb-4">House Rules</h2>
@@ -281,6 +324,13 @@ const Listing = () => {
                 </div>
               </div>
             </div>
+            <div className=" my-6 lg:my-8">
+              <h1 className="text-2xl md:text-2xl font-bold my-2">
+                Where you'll be
+              </h1>
+              <p className="text-md font-medium ">{listing.location}</p>
+              <MapView listing={listing} />
+            </div>
           </div>
 
           {/* Right Column - Booking Card */}
@@ -289,13 +339,13 @@ const Listing = () => {
             <BookingWidget listing={listing} />
           </div>
         </div>
-        <div className=" my-6 lg:my-8">
+        {/* <div className=" my-6 lg:my-8">
           <h1 className="text-2xl md:text-2xl font-bold my-2">
             Where you'll be
           </h1>
           <p className="text-md font-medium ">{listing.location}</p>
           <MapView listing={listing} />
-        </div>
+        </div> */}
       </div>
     )
   );

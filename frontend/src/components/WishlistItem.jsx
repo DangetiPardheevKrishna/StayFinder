@@ -58,7 +58,7 @@ const WishlistCard = ({ listing: property }) => {
             backfaceVisibility: "hidden",
           }}
         >
-          <Link to={`/listing/${property._id}`} className="block h-full">
+          <Link to={`/listings/${property._id}`} className="block h-full">
             <img
               src={property.images[0] || "/placeholder-property.jpg"}
               alt={property.title}

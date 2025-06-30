@@ -24,16 +24,21 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
     images: [String],
-    adults: {
+    guests: {
       type: Number,
       default: 1,
       min: 1,
     },
+    //adults: {
+    //   type: Number,
+    //   default: 1,
+    //   min: 1,
+    // },
     listing: { type: Object, required: true },
-    children: {
-      type: Number,
-      default: 0,
-    },
+    // children: {
+    //   type: Number,
+    //   default: 0,
+    // },
     infants: {
       type: Number,
       default: 0,
