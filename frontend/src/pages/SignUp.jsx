@@ -13,7 +13,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     gender: "", // Added gender field
-    role: "",
+    role: "user",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

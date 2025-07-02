@@ -182,8 +182,8 @@ export default function CreateListing() {
   };
 
   const handleImageChange = (e) => {
-    const files = Array.from(e.target.files).slice(0, 5); // Limit to 5 images
-    if (files.length + images.length > 5) {
+    const files = Array.from(e.target.files).slice(0, 40); // Limit to 5 images
+    if (files.length + images.length > 40) {
       toast.warning("You can upload a maximum of 5 images");
       return;
     }
@@ -419,7 +419,7 @@ export default function CreateListing() {
                   Property Images
                 </h2>
                 <p className="text-gray-600">
-                  Upload high-quality images of your property (max 5 images)
+                  Upload high-quality images of your property (max 40 images)
                 </p>
 
                 <div className="flex flex-col space-y-4">

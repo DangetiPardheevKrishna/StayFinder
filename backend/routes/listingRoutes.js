@@ -15,13 +15,13 @@ listingRoutes.get("/:id", getListingById);
 listingRoutes.delete("/delete-listing/:id", authUser, deleteListing);
 listingRoutes.post(
   "/create-listing",
-  upload.array("images", 3),
+  upload.array("images", 40),
   authUser,
   createListing
 );
 listingRoutes.put(
   "/edit-listing/:id",
-  upload.array("images", 3),
+  upload.array("images", 40),
   authUser,
   editListing
 );

@@ -205,7 +205,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { CalendarRange, Star } from "lucide-react";
+import { CalendarRange, Plus, Star } from "lucide-react";
 import axios from "axios";
 import AppContext from "../context/AuthContext.jsx";
 
@@ -279,7 +279,7 @@ const BookingWidget = ({ listing }) => {
         </div>
 
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-2">
+          {/* <div className="grid grid-cols-2 gap-2">
             <div className="border border-gray-200 rounded-lg p-3">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Check-in
@@ -308,16 +308,60 @@ const BookingWidget = ({ listing }) => {
                 className="w-full border-none cursor-pointer text-sm text-gray-800"
               />
             </div>
-          </div>
+          </div> */}
+          <div className="grid grid-cols-2 gap-2">
+            {/* Check-in */}
+            <div
+              className="border border-gray-200 rounded-lg p-3 cursor-pointer"
+              onClick={() =>
+                document.getElementById("checkin-date").showPicker()
+              }
+            >
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Check-in
+              </label>
+              <input
+                id="checkin-date"
+                type="date"
+                value={formatDateForInput(checkIn)}
+                onChange={(e) => setCheckIn(new Date(e.target.value))}
+                min={new Date().toISOString().split("T")[0]}
+                className="w-full text-sm text-gray-800 focus:outline-none pointer-events-none"
+              />
+            </div>
 
-          <div className="border border-gray-200 rounded-lg p-3">
-            <label className="block text-xs font-medium text-gray-500">
+            {/* Check-out */}
+            <div
+              className="border border-gray-200 rounded-lg p-3 cursor-pointer"
+              onClick={() =>
+                document.getElementById("checkout-date").showPicker()
+              }
+            >
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Check-out
+              </label>
+              <input
+                id="checkout-date"
+                type="date"
+                value={formatDateForInput(checkOut)}
+                onChange={(e) => setCheckOut(new Date(e.target.value))}
+                min={
+                  checkIn
+                    ? formatDateForInput(new Date(checkIn.getTime() + 86400000))
+                    : new Date().toISOString().split("T")[0]
+                }
+                className="w-full text-sm text-gray-800 focus:outline-none pointer-events-none"
+              />
+            </div>
+          </div>
+          <div className="relative border border-gray-200 rounded-lg p-3">
+            <label className="block text-xs pl-1 font-medium text-gray-500">
               Guests
             </label>
             <select
               value={guests}
               onChange={(e) => setGuests(Number(e.target.value))}
-              className="w-full focus:outline-none"
+              className="w-full appearance-none pl-1 focus:outline-none"
             >
               {[...Array(listing.guests)].map((_, i) => (
                 <option key={i} value={i + 1}>
@@ -325,7 +369,30 @@ const BookingWidget = ({ listing }) => {
                 </option>
               ))}
             </select>
+            <Plus className="absolute right-4 top-9 w-4 h-4 text-gray-500 pointer-events-none" />
           </div>
+          {/* <div className="relative border border-gray-200 rounded-lg p-3">
+            <label className="block text-xs font-medium text-gray-500">
+              Guests
+            </label>
+
+            <select
+              value={guests}
+              onChange={(e) => setGuests(Number(e.target.value))}
+              className="w-full appearance-none pr-6 focus:outline-none"
+            >
+              {[...Array(listing.guests)].map((_, i) => (
+                <option key={i} value={i + 1}>
+                  {i + 1} guest{i !== 0 ? "s" : ""}
+                </option>
+              ))}
+            </select>
+
+         
+            <span className="absolute right-5 top-9 pointer-events-none text-gray-500 text-sm font-bold">
+              +
+            </span>
+          </div> */}
 
           <button
             onClick={handleBooking}
