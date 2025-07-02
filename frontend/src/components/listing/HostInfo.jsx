@@ -196,7 +196,7 @@ const HostInfo = ({ host }) => {
             </div>
           </div>
 
-          {showContact ? (
+          {/* {showContact ? (
             <div className="mt-4 space-y-2">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#ff385c]" />
@@ -219,7 +219,7 @@ const HostInfo = ({ host }) => {
               <Phone className="w-4 h-4" />
               Show contact info
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>
