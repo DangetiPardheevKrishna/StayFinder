@@ -22,11 +22,22 @@ const HeroSection = () => {
     setShowFilters(!showFilters);
   };
 
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   navigate("/all-listings");
+  // };
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate("/all-listings");
-  };
 
+    const params = new URLSearchParams();
+    if (location) params.append("location", location);
+    // if (guests) params.append("guests", guests);
+    // if (priceRange[0]) params.append("minPrice", priceRange[0]);
+    // if (priceRange[1]) params.append("maxPrice", priceRange[1]);
+    // if (rating) params.append("rating", rating);
+
+    navigate(`/all-listings?${params.toString()}`);
+  };
   return (
     <section className="relative py-20 px-4 bg-gradient-to-r from-red-600 via-red-500 to-red-700">
       {/* Background pattern */}
@@ -109,10 +120,7 @@ const HeroSection = () => {
               </div>
 
               {/* Search Button */}
-              <button
-                onClick={() => navigate("/all-listings")}
-                className="flex items-center justify-center bg-[#FF385C] hover:bg-[#e0314f] text-white px-6 py-3 rounded-lg shadow-md transition font-medium min-w-[120px]"
-              >
+              <button className="flex items-center justify-center bg-[#FF385C] hover:bg-[#e0314f] text-white px-6 py-3 rounded-lg shadow-md transition font-medium min-w-[120px]">
                 <Search className="w-5 h-5 mr-2" />
                 Search
               </button>

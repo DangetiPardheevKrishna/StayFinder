@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, SlidersHorizontal } from "lucide-react";
 import PropertyGrid from "../components/PropertyGrid";
 import FilterSidebar from "../components/FilterSidebar";
@@ -7,6 +7,7 @@ import useListings from "../hooks/useListings.js";
 
 export default function ListingsPage() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   console.log(searchParams);
   //const [listings, setListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
@@ -14,6 +15,9 @@ export default function ListingsPage() {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [activeFilters, setActiveFilters] = useState({});
   const { listings, getListings, loading } = useListings();
+  const currentLocation = useLocation();
+  const locationParam = searchParams.get("location") || "";
+
   console.log(activeFilters);
   useEffect(() => {
     const location = searchParams.get("location");
@@ -168,11 +172,34 @@ export default function ListingsPage() {
 
     setFilteredListings(filtered);
     setActiveFilters(filters);
+    const params = new URLSearchParams();
+    if (filters.location) params.set("location", filters.location);
+    navigate(`${currentLocation.pathname}?${params.toString()}`);
   };
 
+  // const clearFilters = () => {
+  //   setFilteredListings(listings);
+  //   setActiveFilters({});
+  // };
   const clearFilters = () => {
-    setFilteredListings(listings);
-    setActiveFilters({});
+    const clearedFilters = {
+      search: "",
+      location: "",
+      category: "all",
+      minPrice: 0,
+      maxPrice: 1000,
+      guests: 1,
+      amenities: [],
+      sortBy: "relevance",
+    };
+    getListings();
+    console.log(activeFilters);
+    setActiveFilters(clearedFilters);
+    console.log(activeFilters);
+    // applyFilters(clearedFilters); // Also triggers navigation
+    setTimeout(() => {
+      applyFilters(clearedFilters);
+    }, 0);
   };
 
   const getActiveFilterCount = () => {
@@ -193,7 +220,9 @@ export default function ListingsPage() {
     delete updatedFilters[filterKey];
     setActiveFilters(updatedFilters);
     applyFilters(updatedFilters);
+    console.log(activeFilters);
   };
+  console.log(locationParam);
 
   return (
     <div className="min-h-screen rounded-2xl bg-gray-50">
@@ -301,6 +330,7 @@ export default function ListingsPage() {
               onClose={() => setShowMobileFilters(false)}
               onFilter={applyFilters}
               onClearFilters={clearFilters}
+              initialLocation={locationParam}
             />
           </div>
         </div>
@@ -316,6 +346,7 @@ export default function ListingsPage() {
                 onClose={() => {}}
                 onFilter={applyFilters}
                 onClearFilters={clearFilters}
+                initialLocation={locationParam}
               />
             </div>
           </div>

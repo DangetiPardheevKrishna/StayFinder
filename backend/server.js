@@ -21,5 +21,6 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/admin", adminRoutes);
 server.listen(PORT, () => {
   connectDB();
+  console.log(process.env.MONGO_URI);
   console.log("Server is running on port 3000");
 });

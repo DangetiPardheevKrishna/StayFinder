@@ -489,10 +489,16 @@ import {
   MapPin,
 } from "lucide-react";
 
-const FilterSidebar = ({ isOpen, onClose, onFilter, onClearFilters }) => {
+const FilterSidebar = ({
+  isOpen,
+  onClose,
+  onFilter,
+  onClearFilters,
+  initialLocation = "",
+}) => {
   const [filters, setFilters] = useState({
     search: "",
-    location: "", // Added location filter
+    location: initialLocation, // Added location filter
     category: "all",
     minPrice: 0,
     maxPrice: 1000,
@@ -500,6 +506,7 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, onClearFilters }) => {
     amenities: [],
     sortBy: "relevance",
   });
+  console.log(filters);
 
   const [expandedSections, setExpandedSections] = useState({
     location: true, // Added location section
@@ -597,8 +604,12 @@ const FilterSidebar = ({ isOpen, onClose, onFilter, onClearFilters }) => {
       amenities: [],
       sortBy: "relevance",
     };
+
     setFilters(clearedFilters);
     setPriceRange([0, 1000]);
+    if (window.location.search) {
+      window.history.pushState({}, "", window.location.pathname);
+    }
     onClearFilters();
   };
 
