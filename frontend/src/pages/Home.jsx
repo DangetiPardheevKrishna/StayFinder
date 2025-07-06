@@ -175,7 +175,7 @@ const Home = () => {
         </div>
 
         {/* Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
           {loading
             ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
             : listings
@@ -191,6 +191,50 @@ const Home = () => {
                     wishlist={wishlist}
                     toggleWishlist={toggleWishlist}
                   />
+                ))}
+        </div> */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
+          {loading
+            ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
+            : listings
+                .filter(
+                  (listing) =>
+                    listing.location &&
+                    listing.location.toLowerCase().includes("pune")
+                )
+                .map((listing) => (
+                  <PropertyCard
+                    key={listing._id}
+                    listing={listing}
+                    wishlist={wishlist}
+                    toggleWishlist={toggleWishlist}
+                  />
+                ))}
+        </div>
+
+        {/* 📱 Mobile View (less than md) - Slider with compact cards */}
+        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory py-4 px-2 scrollbar-hide">
+          {loading
+            ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
+            : listings
+                .filter(
+                  (listing) =>
+                    listing.location &&
+                    listing.location.toLowerCase().includes("pune")
+                )
+                .slice(0, 6) // optional: limit to 6 cards on scroll
+                .map((listing) => (
+                  <div
+                    key={listing._id}
+                    className="snap-start flex-shrink-0 w-[75%] max-w-xs"
+                  >
+                    <PropertyCard
+                      listing={listing}
+                      wishlist={wishlist}
+                      toggleWishlist={toggleWishlist}
+                      compact // <-- Add this to conditionally render compact version
+                    />
+                  </div>
                 ))}
         </div>
       </div>
@@ -226,9 +270,26 @@ const Home = () => {
             </svg>
           </Link>
         </div>
+        {/* 🔄 Mobile Slider View (sm screens) */}
+        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 px-2 py-4 scrollbar-hide">
+          {loading
+            ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
+            : currentListings.map((listing) => (
+                <div
+                  key={listing._id}
+                  className="snap-start flex-shrink-0 w-[75%]"
+                >
+                  <PropertyCard
+                    listing={listing}
+                    wishlist={wishlist}
+                    toggleWishlist={toggleWishlist}
+                  />
+                </div>
+              ))}
+        </div>
 
-        {/* Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
+        {/* 🖥️ Grid View for md+ */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
           {loading
             ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
             : currentListings.map((listing) => (
@@ -240,6 +301,33 @@ const Home = () => {
                 />
               ))}
         </div>
+
+        {/* Grid Container */}
+        {/* <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8"> */}
+        {/* <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory py-4 px-2 scrollbar-hide">
+          {loading
+            ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
+            : currentListings.map((listing) => (
+                <PropertyCard
+                  key={listing._id}
+                  listing={listing}
+                  wishlist={wishlist}
+                  toggleWishlist={toggleWishlist}
+                />
+              ))}
+        </div>
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 md:gap-8">
+          {loading
+            ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
+            : currentListings.map((listing) => (
+                <PropertyCard
+                  key={listing._id}
+                  listing={listing}
+                  wishlist={wishlist}
+                  toggleWishlist={toggleWishlist}
+                />
+              ))}
+        </div> */}
       </div>
       <HowItWorks />
       <WhyChooseUs />

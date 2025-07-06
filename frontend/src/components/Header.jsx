@@ -18,6 +18,11 @@ import {
   Cross,
   CrossIcon,
   X,
+  CircleUserRound,
+  UserCircle,
+  Briefcase,
+  CalendarCheck,
+  LayoutDashboard,
 } from "lucide-react";
 import { useContext } from "react";
 import AppContext from "../context/AuthContext.jsx";
@@ -265,20 +270,20 @@ export const Header = () => {
               {showMobileMenu ? (
                 <X className="w-6 h-6 transition-transform duration-200 hover:rotate-90" />
               ) : (
-                <Menu className="w-6 h-6 transition-transform duration-200 hover:scale-110" />
+                <CircleUserRound className="w-6 h-6 transition-transform duration-200 hover:scale-110" />
               )}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {showMobileMenu && (
+        {/* {showMobileMenu && (
           <div
             className="md:hidden border-t border-gray-100 py-4"
             ref={mobileMenuRef}
           >
             <div className="space-y-3">
-              {/* Mobile search */}
+          
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <input
@@ -357,6 +362,112 @@ export const Header = () => {
                       onClick={() => setShowMobileMenu(false)}
                       className=" px-4 py-2 text-sm  bg-primary text-white  hover:bg-primary-hover inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 "
                     >
+                      Sign up
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )} */}
+        {showMobileMenu && (
+          <div
+            className="md:hidden border-t border-gray-200 py-3 bg-white"
+            ref={mobileMenuRef}
+          >
+            <div className="space-y-3 px-3">
+              {/* Mobile search - compact but still usable */}
+              <div className="relative mb-3">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
+                <input
+                  onClick={() => navigate("/all-listings")}
+                  type="text"
+                  placeholder="Search destinations..."
+                  className="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-sm"
+                />
+              </div>
+
+              {user ? (
+                <div className="flex flex-col space-y-2">
+                  {/* Profile section */}
+                  <Link
+                    to="/profile"
+                    className="flex items-center px-2 py-1.5 rounded-md hover:bg-gray-50 transition-colors"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    <User className="h-4 w-4 text-gray-700 mr-2" />
+                    <span className="text-gray-900 text-sm font-medium">
+                      Profile
+                    </span>
+                  </Link>
+
+                  {user.role == "host" && (
+                    <div className="space-y-1">
+                      <Link
+                        to="/host/dashboard"
+                        className="flex items-center px-2 py-1.5 rounded-md hover:bg-gray-50 text-gray-700 text-sm"
+                        onClick={() => setShowMobileMenu(false)}
+                      >
+                        <LayoutDashboard className="h-4 w-4 mr-2" />
+                        Host Dashboard
+                      </Link>
+                      <Link
+                        to="/host/guest-booking"
+                        className="flex items-center px-2 py-1.5 rounded-md hover:bg-gray-50 text-gray-700 text-sm"
+                        onClick={() => setShowMobileMenu(false)}
+                      >
+                        <BedDouble className="h-4 w-4 mr-2" />
+                        Guest Requests
+                      </Link>
+                    </div>
+                  )}
+
+                  <Link
+                    to="/bookings"
+                    className="flex items-center px-2 py-1.5 rounded-md hover:bg-gray-50 text-gray-700 text-sm"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    <ClipboardList className="h-4 w-4 mr-2" />
+                    My Trips
+                  </Link>
+
+                  <Link
+                    to="/wishlist"
+                    className="flex items-center px-2 py-1.5 rounded-md hover:bg-gray-50 text-gray-700 text-sm"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    <Heart className="h-4 w-4 mr-2" />
+                    Wishlist
+                  </Link>
+
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setShowMobileMenu(false);
+                    }}
+                    className="flex items-center px-2 py-1.5 rounded-md hover:bg-gray-50 text-gray-700 text-sm mt-2"
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex space-x-2 pt-1">
+                  <Link
+                    to="/login"
+                    className="flex-1"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    <button className="w-full px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded-md border border-gray-200 transition-colors">
+                      Log in
+                    </button>
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="flex-1"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    <button className="w-full px-3 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-hover rounded-md transition-colors">
                       Sign up
                     </button>
                   </Link>

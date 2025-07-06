@@ -207,15 +207,195 @@
 
 // export default HowItWorks;
 
+// import { useState, useEffect } from "react";
+// import {
+//   CalendarDays,
+//   KeyRound,
+//   Search,
+//   Star,
+//   ChevronRight,
+//   MoveRight,
+// } from "lucide-react";
+
+// const HowItWorks = () => {
+//   const [activeStep, setActiveStep] = useState(0);
+
+//   const steps = [
+//     {
+//       icon: <Search className="w-6 h-6" />,
+//       title: "Search Smart",
+//       description: "Use our AI-powered filters to find exactly what you want",
+//       highlight: "100+ filters available",
+//       color: "bg-blue-100 text-blue-600",
+//     },
+//     {
+//       icon: <CalendarDays className="w-6 h-6" />,
+//       title: "Book Seamlessly",
+//       description: "Instant booking or request with 24-hour response guarantee",
+//       highlight: "No booking fees",
+//       color: "bg-purple-100 text-purple-600",
+//     },
+//     {
+//       icon: <KeyRound className="w-6 h-6" />,
+//       title: "Enjoy Your Stay",
+//       description:
+//         "Access digital guidebooks and 24/7 support during your trip",
+//       highlight: "Local tips included",
+//       color: "bg-green-100 text-green-600",
+//     },
+//     {
+//       icon: <Star className="w-6 h-6" />,
+//       title: "Share Your Experience",
+//       description: "Earn rewards for reviews and help our community grow",
+//       highlight: "Loyalty program",
+//       color: "bg-amber-100 text-amber-600",
+//     },
+//   ];
+
+//   // Auto-rotate steps
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setActiveStep((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
+//     }, 5000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   return (
+//     <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 overflow-hidden">
+//       {/* Decorative elements */}
+//       <div className="absolute top-0 left-0 w-1/3 h-full bg-[#ff385c]/5 -skew-x-12 -translate-x-1/2"></div>
+//       <div className="absolute bottom-0 right-0 w-1/3 h-full bg-[#ff385c]/5 skew-x-12 translate-x-1/2"></div>
+
+//       <div className="max-w-7xl mx-auto px-6 relative z-10">
+//         <div className="text-center mb-16">
+//           <span className="inline-block px-3 py-1 text-sm font-medium bg-[#ff385c]/10 text-[#ff385c] rounded-full mb-4">
+//             Simple Process
+//           </span>
+//           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+//             How <span className="text-[#ff385c]">StayFindz</span> Works
+//           </h2>
+//           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+//             Your journey from searching to staying takes just minutes
+//           </p>
+//         </div>
+
+//         <div className="flex flex-col lg:flex-row items-center gap-12">
+//           {/* Circular timeline */}
+//           <div className="relative w-64 h-64 lg:w-80 lg:h-80 flex-shrink-0">
+//             <div className="absolute inset-0 rounded-full border-2 border-gray-200"></div>
+
+//             {steps.map((step, index) => {
+//               const angle = index * 90 - 45; // 4 steps at 90° intervals
+//               const x = 50 + 40 * Math.cos((angle * Math.PI) / 180);
+//               const y = 50 + 40 * Math.sin((angle * Math.PI) / 180);
+
+//               return (
+//                 <button
+//                   key={index}
+//                   onClick={() => setActiveStep(index)}
+//                   className={`absolute w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+//                     activeStep === index
+//                       ? "scale-110 shadow-lg " +
+//                         step.color.replace("100", "200")
+//                       : "bg-white shadow-md hover:scale-105"
+//                   } ${step.color}`}
+//                   style={{
+//                     left: `${x}%`,
+//                     top: `${y}%`,
+//                     transform: `translate(-50%, -50%) ${
+//                       activeStep === index ? "scale(1.1)" : ""
+//                     }`,
+//                   }}
+//                 >
+//                   {step.icon}
+//                 </button>
+//               );
+//             })}
+
+//             {/* Active step content in center */}
+//             <div className="absolute inset-0 flex items-center justify-center">
+//               <div
+//                 className={`w-32 h-32 rounded-full flex items-center justify-center transition-colors duration-300 ${steps[
+//                   activeStep
+//                 ].color.replace("100", "50")}`}
+//               >
+//                 <span className="text-4xl font-bold text-gray-800">
+//                   {activeStep + 1}
+//                 </span>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Step content */}
+//           <div className="flex-grow">
+//             <div className="relative h-64">
+//               {steps.map((step, index) => (
+//                 <div
+//                   key={index}
+//                   className={`absolute inset-0 p-6 bg-white rounded-xl shadow-sm transition-opacity duration-500 ${
+//                     activeStep === index
+//                       ? "opacity-100"
+//                       : "opacity-0 pointer-events-none"
+//                   }`}
+//                 >
+//                   <div className="flex flex-col h-full">
+//                     <div className="flex items-center gap-3 mb-4">
+//                       <span
+//                         className={`w-10 h-10 rounded-full flex items-center justify-center ${step.color}`}
+//                       >
+//                         {step.icon}
+//                       </span>
+//                       <h3 className="text-2xl font-bold text-gray-900">
+//                         {step.title}
+//                       </h3>
+//                     </div>
+//                     <p className="text-gray-600 text-lg mb-6 flex-grow">
+//                       {step.description}
+//                     </p>
+//                     <div className="flex items-center justify-between">
+//                       <span
+//                         className={`px-4 py-2 rounded-full text-sm font-medium ${step.color}`}
+//                       >
+//                         {step.highlight}
+//                       </span>
+//                       <button
+//                         onClick={() =>
+//                           setActiveStep(
+//                             index === steps.length - 1 ? 0 : index + 1
+//                           )
+//                         }
+//                         className="flex items-center gap-1 text-[#ff385c] hover:text-[#e03148] transition-colors"
+//                       >
+//                         Next step <MoveRight className="w-4 h-4" />
+//                       </button>
+//                     </div>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Mobile dots navigation */}
+//         <div className="flex justify-center gap-2 mt-8 lg:hidden">
+//           {steps.map((_, index) => (
+//             <button
+//               key={index}
+//               onClick={() => setActiveStep(index)}
+//               className={`w-3 h-3 rounded-full transition-colors ${
+//                 activeStep === index ? "bg-[#ff385c]" : "bg-gray-300"
+//               }`}
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default HowItWorks;
 import { useState, useEffect } from "react";
-import {
-  CalendarDays,
-  KeyRound,
-  Search,
-  Star,
-  ChevronRight,
-  MoveRight,
-} from "lucide-react";
+import { CalendarDays, KeyRound, Search, Star, MoveRight } from "lucide-react";
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -252,40 +432,101 @@ const HowItWorks = () => {
     },
   ];
 
-  // Auto-rotate steps
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative bg-gradient-to-b from-gray-50 to-white py-20 overflow-hidden">
-      {/* Decorative elements */}
+    <section className="relative bg-gradient-to-b from-gray-50 to-white py-16 overflow-hidden">
+      {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-1/3 h-full bg-[#ff385c]/5 -skew-x-12 -translate-x-1/2"></div>
       <div className="absolute bottom-0 right-0 w-1/3 h-full bg-[#ff385c]/5 skew-x-12 translate-x-1/2"></div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="text-center mb-14">
           <span className="inline-block px-3 py-1 text-sm font-medium bg-[#ff385c]/10 text-[#ff385c] rounded-full mb-4">
             Simple Process
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
             How <span className="text-[#ff385c]">StayFindz</span> Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
             Your journey from searching to staying takes just minutes
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Circular timeline */}
-          <div className="relative w-64 h-64 lg:w-80 lg:h-80 flex-shrink-0">
-            <div className="absolute inset-0 rounded-full border-2 border-gray-200"></div>
+        {/* Responsive Layout */}
+        <div className="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-16">
+          {/* 📱 Mobile Step View */}
+          <div className="lg:hidden w-full">
+            <div className="relative h-64">
+              {steps.map((step, index) => (
+                <div
+                  key={index}
+                  className={`absolute inset-0 p-5 bg-white rounded-xl shadow transition-opacity duration-500 ${
+                    activeStep === index
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
+                  }`}
+                >
+                  <div className="flex flex-col h-full justify-between">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span
+                        className={`w-10 h-10 rounded-full flex items-center justify-center ${step.color}`}
+                      >
+                        {step.icon}
+                      </span>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-600 mb-4 text-base">
+                      {step.description}
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span
+                        className={`px-3 py-1 text-sm rounded-full ${step.color}`}
+                      >
+                        {step.highlight}
+                      </span>
+                      <button
+                        onClick={() =>
+                          setActiveStep(
+                            index === steps.length - 1 ? 0 : index + 1
+                          )
+                        }
+                        className="flex items-center gap-1 text-[#ff385c] text-sm"
+                      >
+                        Next <MoveRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
+            {/* Step Dots */}
+            <div className="flex justify-center mt-6 gap-2">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveStep(index)}
+                  className={`w-3 h-3 rounded-full ${
+                    activeStep === index ? "bg-[#ff385c]" : "bg-gray-300"
+                  }`}
+                ></button>
+              ))}
+            </div>
+          </div>
+
+          {/* 🖥️ Desktop Circular Timeline */}
+          <div className="hidden lg:block relative w-80 h-80">
+            <div className="absolute inset-0 rounded-full border-2 border-gray-200"></div>
             {steps.map((step, index) => {
-              const angle = index * 90 - 45; // 4 steps at 90° intervals
+              const angle = index * 90 - 45;
               const x = 50 + 40 * Math.cos((angle * Math.PI) / 180);
               const y = 50 + 40 * Math.sin((angle * Math.PI) / 180);
 
@@ -312,10 +553,9 @@ const HowItWorks = () => {
               );
             })}
 
-            {/* Active step content in center */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div
-                className={`w-32 h-32 rounded-full flex items-center justify-center transition-colors duration-300 ${steps[
+                className={`w-32 h-32 rounded-full flex items-center justify-center ${steps[
                   activeStep
                 ].color.replace("100", "50")}`}
               >
@@ -326,13 +566,13 @@ const HowItWorks = () => {
             </div>
           </div>
 
-          {/* Step content */}
-          <div className="flex-grow">
+          {/* 🖥️ Desktop Step Details */}
+          <div className="hidden lg:block flex-grow">
             <div className="relative h-64">
               {steps.map((step, index) => (
                 <div
                   key={index}
-                  className={`absolute inset-0 p-6 bg-white rounded-xl shadow-sm transition-opacity duration-500 ${
+                  className={`absolute inset-0 p-6 bg-white rounded-xl shadow transition-opacity duration-500 ${
                     activeStep === index
                       ? "opacity-100"
                       : "opacity-0 pointer-events-none"
@@ -364,7 +604,7 @@ const HowItWorks = () => {
                             index === steps.length - 1 ? 0 : index + 1
                           )
                         }
-                        className="flex items-center gap-1 text-[#ff385c] hover:text-[#e03148] transition-colors"
+                        className="flex items-center gap-1 text-[#ff385c] hover:text-[#e03148] transition"
                       >
                         Next step <MoveRight className="w-4 h-4" />
                       </button>
@@ -374,19 +614,6 @@ const HowItWorks = () => {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Mobile dots navigation */}
-        <div className="flex justify-center gap-2 mt-8 lg:hidden">
-          {steps.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveStep(index)}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                activeStep === index ? "bg-[#ff385c]" : "bg-gray-300"
-              }`}
-            />
-          ))}
         </div>
       </div>
     </section>
