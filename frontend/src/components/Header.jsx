@@ -144,15 +144,16 @@ export const Header = () => {
                   </div> */}
                 </div>
 
-                {user.role == "user" ? (
+                {user.role == "user" && (
                   <Link
-                    to="/becomehost"
+                    to="/become-host"
                     // onClick={handleClick}
                     className="text-gray-700 hover:text-gray-900 px-3 py-2 text-sm  hover:bg-gray-100 focus:ring-gray-500  inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none"
                   >
                     Become a Host
                   </Link>
-                ) : (
+                )}
+                {user.role == "host" && (
                   <Link
                     to="/host/create-listing"
                     className="flex items-center space-x-1 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-hover transition-colors"

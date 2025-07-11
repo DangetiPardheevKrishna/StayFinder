@@ -411,7 +411,7 @@ export default function ListingsPage() {
                       activeFilters.maxPrice < 1000)) && (
                     <div className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
                       <span>
-                        Price: ${activeFilters.minPrice || 0} - $
+                        Price: ₹{activeFilters.minPrice || 0} - ₹
                         {activeFilters.maxPrice || 1000}
                       </span>
                       <button

@@ -68,7 +68,7 @@ const HostDashboard = () => {
             <div>
               <p className="text-sm text-gray-500 font-medium">Average Price</p>
               <h2 className="text-2xl font-semibold text-green-600 mt-1">
-                ${averagePrice.toFixed(2)}
+                ₹{averagePrice.toFixed(2)}
               </h2>
             </div>
           </div>
@@ -166,7 +166,7 @@ const HostDashboard = () => {
                     <div className="mt-3 grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                       <div>
                         <p className="text-gray-500">Price</p>
-                        <p className="font-medium">${listing.price}/night</p>
+                        <p className="font-medium">₹{listing.price}/night</p>
                       </div>
                       <div>
                         <p className="text-gray-500">Bedrooms</p>

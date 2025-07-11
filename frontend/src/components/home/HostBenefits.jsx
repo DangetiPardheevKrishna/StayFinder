@@ -5,7 +5,7 @@ import {
   Zap,
   BadgeCheck,
   Clock,
-  DollarSign,
+  IndianRupee,
   Globe,
   Home,
   MessageSquare,
@@ -26,7 +26,7 @@ const HostBenefits = () => {
       icon: <ShieldCheck className="w-8 h-8 text-[#ff385c]" />,
       title: "Full Protection",
       description:
-        "$1M property damage protection and liability coverage included at no extra cost",
+        "1Lakh property damage protection and liability coverage included at no extra cost",
       stat: "Risk-free hosting",
     },
     {
@@ -58,7 +58,7 @@ const HostBenefits = () => {
       stat: "100% calendar control",
     },
     {
-      icon: <DollarSign className="w-8 h-8 text-[#ff385c]" />,
+      icon: <IndianRupee className="w-8 h-8 text-[#ff385c]" />,
       title: "Fast Payouts",
       description:
         "Get paid via direct deposit, PayPal, or wire transfer within 24 hours of check-in",
@@ -100,7 +100,7 @@ const HostBenefits = () => {
                 <span className="text-[#ff385c]">Host</span> With Confidence
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Join 500,000+ hosts earning an average of $15,000/year on our
+                Join 500,000+ hosts earning an average of ₹150,000/year on our
                 platform
               </p>
               <img

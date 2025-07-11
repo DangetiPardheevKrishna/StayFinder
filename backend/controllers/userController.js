@@ -5,6 +5,8 @@ import User from "../models/userModel.js";
 import { cloudinary } from "../lib/cloudinary.js";
 import bcrypt from "bcryptjs";
 import { io, userSocketMap } from "../socket/socket.js";
+import { uploadToBunnyNet } from "../lib/bunny.js";
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -66,14 +68,10 @@ const register = async (req, res) => {
     if (existingUser) {
       return res.json({ success: false, message: "User already exists." });
     }
-    // const profileImage =
-    //   gender === "male"
-    //     ? `https://avatar.iran.liara.run/public/boy?username=${name}`
-    //     : `https://avatar.iran.liara.run/public/girl?username=${name}`;
     const profileImage =
       gender === "male"
-        ? `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS633GIo1_mV3D9K08VUN6v5_FJClbCt2WT7piEr2JMd4JPGXDCIJBy8b3EqiSCjRlGks&usqp=CAU`
-        : `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWCAIYSZNHw_Ynhq-E1_iSnZQ4yem4hS7H5yxg58SdOvJTiDf255nUwNIdhw4AAEk9sj0&usqp=CAU`;
+        ? `https://avatar.iran.liara.run/public/boy?username=${name}`
+        : `https://avatar.iran.liara.run/public/girl?username=${name}`;
 
     // Create new user
     const user = new User({
@@ -288,6 +286,66 @@ const toggleWishList = async (req, res) => {
 //   }
 // };
 
+// const updateProfile = async (req, res) => {
+//   try {
+//     const { userId, name, email, phone, bio, gender } = req.body;
+//     const imageFile = req.file;
+
+//     if (!userId || !name || !gender || !phone || !email || !bio) {
+//       return res.json({ success: false, message: "Missing details" });
+//     }
+//     // Find user
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Check if email is being changed and not already taken
+
+//     const emailExists = await User.findOne({ email });
+//     if (emailExists && emailExists._id.toString() !== userId) {
+//       return res.json({
+//         success: false,
+//         message: "Email already in use by another user",
+//       });
+//     }
+
+//     // Update fields
+//     user.name = name || user.name;
+//     user.email = email || user.email;
+//     user.phone = phone || user.phone;
+//     user.bio = bio || user.bio;
+//     user.gender = gender || user.gender;
+//     // Save updated user
+//     if (imageFile) {
+//       const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+//         resource_type: "image",
+//       });
+//       const imageUrl = imageUpload.secure_url;
+//       await User.findByIdAndUpdate(userId, { profileImage: imageUrl });
+//     }
+//     const updatedUser = await user.save();
+
+//     // Return user data without password
+//     const userResponse = {
+//       name: updatedUser.name,
+//       email: updatedUser.email,
+//       profileImage: updatedUser.profileImage,
+//       phone: updatedUser.phone,
+//       bio: updatedUser.bio,
+//       gender: updatedUser.gender,
+//     };
+//     res.json({
+//       success: true,
+//       userResponse,
+//       message: "Profile Updated Successfully",
+//     });
+//   } catch (error) {
+//     console.error("Update profile error:", error.message);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };
+
 const updateProfile = async (req, res) => {
   try {
     const { userId, name, email, phone, bio, gender } = req.body;
@@ -296,13 +354,11 @@ const updateProfile = async (req, res) => {
     if (!userId || !name || !gender || !phone || !email || !bio) {
       return res.json({ success: false, message: "Missing details" });
     }
-    // Find user
+
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    // Check if email is being changed and not already taken
 
     const emailExists = await User.findOne({ email });
     if (emailExists && emailExists._id.toString() !== userId) {
@@ -312,23 +368,23 @@ const updateProfile = async (req, res) => {
       });
     }
 
-    // Update fields
     user.name = name || user.name;
     user.email = email || user.email;
     user.phone = phone || user.phone;
     user.bio = bio || user.bio;
     user.gender = gender || user.gender;
-    // Save updated user
+
+    // ✅ Replace Cloudinary with Bunny
     if (imageFile) {
-      const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
-        resource_type: "image",
-      });
-      const imageUrl = imageUpload.secure_url;
-      await User.findByIdAndUpdate(userId, { profileImage: imageUrl });
+      const remotePath = `profile-images/${userId}-${Date.now()}-${
+        imageFile.originalname
+      }`;
+      const imageUrl = await uploadToBunnyNet(imageFile.path, remotePath);
+      user.profileImage = imageUrl;
     }
+
     const updatedUser = await user.save();
 
-    // Return user data without password
     const userResponse = {
       name: updatedUser.name,
       email: updatedUser.email,
@@ -337,6 +393,7 @@ const updateProfile = async (req, res) => {
       bio: updatedUser.bio,
       gender: updatedUser.gender,
     };
+
     res.json({
       success: true,
       userResponse,

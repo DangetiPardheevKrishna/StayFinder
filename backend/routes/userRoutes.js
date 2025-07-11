@@ -15,6 +15,7 @@ import {
 } from "../controllers/userController.js";
 import authUser from "../middleware/authUser.js";
 import upload from "../middleware/multer.js";
+import { googleLogin } from "../controllers/authController.js";
 
 const userRoutes = express.Router();
 
@@ -37,4 +38,5 @@ userRoutes.post("/change-password", authUser, changePassword);
 
 userRoutes.get("/host-listings", authUser, getHostListings);
 userRoutes.get("/host-guest-listings", authUser, getHostGuestListings);
+userRoutes.post("/auth/google", googleLogin);
 export default userRoutes;

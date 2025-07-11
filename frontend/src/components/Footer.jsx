@@ -15,6 +15,7 @@ import {
   Star,
   CreditCard,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -67,28 +68,32 @@ const Footer = () => {
                 {
                   name: "Destinations",
                   icon: <MapPin className="w-4 h-4 mr-2" />,
+                  Link: "destinations",
                 },
                 {
                   name: "Experiences",
                   icon: <Heart className="w-4 h-4 mr-2" />,
+                  Link: "experiences",
                 },
                 {
                   name: "Trust & Safety",
                   icon: <Shield className="w-4 h-4 mr-2" />,
+                  Link: "trust-safety",
                 },
                 {
                   name: "Travel Guides",
                   icon: <MessageSquare className="w-4 h-4 mr-2" />,
+                  Link: "travel-guides",
                 },
               ].map((item) => (
                 <li key={item.name}>
-                  <a
-                    href="#"
+                  <Link
+                    to={`${item.Link}`}
                     className="text-[#a3a3a3] hover:text-white text-sm transition-colors flex items-center"
                   >
                     {item.icon}
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -105,28 +110,32 @@ const Footer = () => {
                 {
                   name: "Become a Host",
                   icon: <Home className="w-4 h-4 mr-2" />,
+                  Link: "become-host",
                 },
                 {
                   name: "Host Resources",
                   icon: <HelpCircle className="w-4 h-4 mr-2" />,
+                  Link: "host-resources",
                 },
                 {
                   name: "Community Forum",
                   icon: <MessageSquare className="w-4 h-4 mr-2" />,
+                  Link: "community-forum",
                 },
                 {
                   name: "Safety Tips",
                   icon: <Shield className="w-4 h-4 mr-2" />,
+                  Link: "safety-tips",
                 },
               ].map((item) => (
                 <li key={item.name}>
-                  <a
-                    href="#"
+                  <Link
+                    to={`${item.Link}`}
                     className="text-[#a3a3a3] hover:text-white text-sm transition-colors flex items-center"
                   >
                     {item.icon}
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

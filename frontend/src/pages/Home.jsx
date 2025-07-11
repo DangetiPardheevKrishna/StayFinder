@@ -271,7 +271,7 @@ const Home = () => {
           </Link>
         </div>
         {/* 🔄 Mobile Slider View (sm screens) */}
-        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory gap-4 px-2 py-4 scrollbar-hide">
+        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory px-2 py-4 scrollbar-hide">
           {loading
             ? [...Array(6)].map((_, index) => <CardLoading key={index} />)
             : currentListings.map((listing) => (

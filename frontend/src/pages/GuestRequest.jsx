@@ -189,13 +189,13 @@ const GuestRequest = () => {
                         <div className="flex items-start gap-3">
                           <div className="mt-0.5 p-1 bg-gray-100 rounded-full">
                             <span className="w-4 h-4 text-gray-500 font-bold text-xs flex items-center justify-center">
-                              $
+                              ₹
                             </span>
                           </div>
                           <div>
                             <p className="text-gray-500 text-xs">Total</p>
                             <p className="font-medium text-gray-800">
-                              ${booking.totalPrice.toLocaleString()}
+                              ₹{booking.totalPrice.toLocaleString()}
                             </p>
                           </div>
                         </div>

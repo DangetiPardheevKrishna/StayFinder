@@ -472,7 +472,7 @@ import React, { useState } from "react";
 import {
   Search,
   Users,
-  DollarSign,
+  IndianRupee,
   SlidersHorizontal,
   X,
   ChevronDown,
@@ -534,7 +534,7 @@ const FilterSidebar = ({
       icon: <TreePine className="h-4 w-4" />,
     },
     { id: "Luxury", name: "Luxury", icon: <Sparkles className="h-4 w-4" /> },
-    { id: "Budget", name: "Budget", icon: <DollarSign className="h-4 w-4" /> },
+    { id: "Budget", name: "Budget", icon: <IndianRupee className="h-4 w-4" /> },
     {
       id: "Historical",
       name: "Historical",
@@ -770,9 +770,9 @@ const FilterSidebar = ({
             {expandedSections.price && (
               <div className="space-y-4">
                 <div className="flex items-center space-x-2">
-                  <DollarSign className="h-4 w-4 text-gray-400" />
+                  <IndianRupee className="h-4 w-4 text-gray-400" />
                   <span className="text-sm text-gray-600">
-                    ${priceRange[0]} - ${priceRange[1]} per night
+                    ₹{priceRange[0]} - ₹{priceRange[1]} per night
                   </span>
                 </div>
 

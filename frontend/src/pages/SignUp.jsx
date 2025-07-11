@@ -4,6 +4,7 @@ import { Home, Mail, Lock, User, Eye, EyeOff } from "lucide-react";
 import AppContext from "../context/AuthContext";
 import axios from "axios";
 import { toast } from "sonner";
+import GoogleAuth from "../components/GoogleSignIn";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -285,6 +286,18 @@ const SignUp = () => {
                 "Create account"
               )}
             </button>
+            <div className="my-4">
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300" />
+                </div>
+                <div className="relative bg-white px-4 text-sm text-gray-500">
+                  OR
+                </div>
+              </div>
+            </div>
+
+            <GoogleAuth />
           </form>
 
           <div className="mt-6 text-center">

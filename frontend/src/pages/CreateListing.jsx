@@ -348,11 +348,11 @@ export default function CreateListing() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Price per night ($) *
+                      Price per night (₹) *
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">
-                        $
+                        ₹
                       </span>
                       <input
                         type="number"

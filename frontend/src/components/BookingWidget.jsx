@@ -267,7 +267,7 @@ const BookingWidget = ({ listing }) => {
         <div className="flex justify-between items-start mb-4">
           <div>
             <p className="text-2xl font-bold text-[#ff385c]">
-              ${listing.price}
+              ₹{listing.price}
             </p>
             <p className="text-gray-500">per night</p>
           </div>
@@ -410,7 +410,7 @@ const BookingWidget = ({ listing }) => {
             <div className="space-y-3 pt-4 border-t border-gray-200">
               <div className="flex justify-between">
                 <span className="text-gray-600">
-                  ${listing.price} x{" "}
+                  ₹{listing.price} x{" "}
                   {Math.ceil(
                     (checkOut.getTime() - checkIn.getTime()) /
                       (1000 * 60 * 60 * 24)
@@ -418,7 +418,7 @@ const BookingWidget = ({ listing }) => {
                   nights
                 </span>
                 <span>
-                  $
+                  ₹
                   {listing.price *
                     Math.ceil(
                       (checkOut.getTime() - checkIn.getTime()) /
@@ -428,16 +428,16 @@ const BookingWidget = ({ listing }) => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Cleaning fee</span>
-                <span>$120</span>
+                <span>₹120</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Service fee</span>
-                <span>$85</span>
+                <span>₹85</span>
               </div>
               <div className="flex justify-between font-bold pt-2 border-t border-gray-200">
                 <span>Total</span>
                 <span>
-                  $
+                  ₹
                   {listing.price *
                     Math.ceil(
                       (checkOut.getTime() - checkIn.getTime()) /

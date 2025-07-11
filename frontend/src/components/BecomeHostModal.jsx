@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import {
   X,
   Home,
-  DollarSign,
+  IndianRupee,
   Users,
   Shield,
   Star,
@@ -37,11 +37,11 @@ const BecomeHostModal = ({ isOpen, onClose }) => {
 
   const benefits = [
     {
-      icon: <DollarSign className="h-8 w-8 text-green-500" />,
+      icon: <IndianRupee className="h-8 w-8 text-green-500" />,
       title: "Earn Extra Income",
       description:
         "Make money from your unused space. Hosts earn an average of $924 per month.",
-      highlight: "$924/month",
+      highlight: "₹924/month",
     },
     {
       icon: <Users className="h-8 w-8 text-blue-500" />,

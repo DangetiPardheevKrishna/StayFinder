@@ -103,7 +103,7 @@ const MyBooking = () => {
                 Total Spent
               </p>
               <h2 className="text-xl sm:text-2xl font-semibold text-green-600 mt-1">
-                ${totalSpent.toLocaleString()}
+                ₹{totalSpent.toLocaleString()}
               </h2>
             </div>
           </div>
@@ -240,7 +240,7 @@ const MyBooking = () => {
                         </div>
                         <div>
                           <p className="text-gray-500">Total</p>
-                          <p className="font-medium">${booking.totalPrice}</p>
+                          <p className="font-medium">₹{booking.totalPrice}</p>
                         </div>
                       </div>
 

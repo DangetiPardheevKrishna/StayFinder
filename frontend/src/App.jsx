@@ -17,6 +17,13 @@ import GuestRequest from "./pages/GuestRequest.jsx";
 import ListingsPage from "./pages/ListingsPage.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import BecomeHost from "./pages/BecomeHost.jsx";
+import Destinations from "./pages/footer/Destinations.jsx";
+import Experiences from "./pages/footer/Experiences.jsx";
+import TrustAndSafety from "./pages/footer/TrustAndSafety.jsx";
+import TravelGuides from "./pages/footer/TravelGuides.jsx";
+import HostResources from "./pages/footer/HostResources.jsx";
+import CommunityForum from "./pages/footer/CommunityForum.jsx";
+import SafetyTips from "./pages/footer/SafetyTips.jsx";
 
 const App = () => {
   return (
@@ -50,7 +57,14 @@ const App = () => {
           <Route path="/host/edit-listing/:id" element={<EditListing />} />
           <Route path="/host/guest-booking" element={<GuestRequest />} />
           <Route path="/host/dashboard" element={<HostDashboard />} />
-          <Route path="/becomehost" element={<BecomeHost />} />
+          <Route path="/become-host" element={<BecomeHost />} />
+          <Route path="/destinations" element={<Destinations />} />
+          <Route path="/experiences" element={<Experiences />} />
+          <Route path="/trust-safety" element={<TrustAndSafety />} />
+          <Route path="/travel-guides" element={<TravelGuides />} />
+          <Route path="/host-resources" element={<HostResources />} />
+          <Route path="/community-forum" element={<CommunityForum />} />
+          <Route path="/safety-tips" element={<SafetyTips />} />
         </Routes>
       </main>
       <Footer />

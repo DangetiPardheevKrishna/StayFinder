@@ -310,6 +310,7 @@ import {
   X,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import LocationSearchInput from "../LocationSearchInput";
 
 const HeroSection = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -319,9 +320,7 @@ const HeroSection = () => {
   const [priceRange, setPriceRange] = useState([50, 300]);
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
-
   const toggleFilters = () => setShowFilters(!showFilters);
-
   const handleSearch = (e) => {
     e.preventDefault();
     const params = new URLSearchParams();
@@ -380,17 +379,28 @@ const HeroSection = () => {
         </div>
 
         {/* 🔍 Search Card */}
-        <div className="bg-white p-3 rounded-xl shadow-2xl max-w-3xl mx-auto">
+        <div className="bg-white p-3 rounded-xl shadow-2xl max-w-4xl mx-auto">
           <form onSubmit={handleSearch}>
             <div className="flex flex-col sm:flex-row gap-2">
-              <div className="w-full flex items-center border border-gray-300 rounded-lg px-4 py-3">
+              {/* <div className="w-full flex items-center border border-gray-300 rounded-lg px-4 py-3">
                 <MapPin className="text-gray-500 w-5 h-5 mr-2" />
-                <input
-                  type="text"
+                <LocationSearchInput
                   value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  placeholder="Where are you going?"
-                  className="w-full focus:outline-none text-gray-700 placeholder-gray-500 text-sm"
+                  onChange={(val) => setLocation(val)} // Updates on typing
+                  onSelect={(loc) => {
+                    setLocation(loc.name); // Updates on selection
+                    console.log("Selected:", loc); // Optional: lat/lng available
+                  }}
+                />
+              </div> */}
+              <div className="w-full">
+                <LocationSearchInput
+                  value={location}
+                  onChange={(val) => setLocation(val)} // Updates on typing
+                  onSelect={(loc) => {
+                    setLocation(loc.name); // Updates on selection
+                    console.log("Selected:", loc); // Optional: lat/lng available
+                  }}
                 />
               </div>
 
@@ -450,7 +460,7 @@ const HeroSection = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Price range: ${priceRange[0]} - ${priceRange[1]}
+                    Price range: ₹{priceRange[0]} - ₹{priceRange[1]}
                   </label>
                   <div className="flex items-center space-x-2">
                     <input

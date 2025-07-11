@@ -1,5 +1,6 @@
 import Listing from "../models/listingModel.js";
 import { cloudinary } from "../lib/cloudinary.js";
+import { uploadToBunnyNet } from "../lib/bunny.js";
 // const getListings = async (req, res) => {
 //   try {
 //     // Fetch listings from the database
@@ -69,6 +70,62 @@ const getListingById = async (req, res) => {
 //     res.status(500).json({ message: "Server error" });
 //   }
 // };
+// const createListing = async (req, res) => {
+//   try {
+//     const {
+//       title,
+//       description,
+//       location,
+//       latitude,
+//       longitude,
+//       price,
+//       category,
+//       guests,
+//       bedrooms,
+//       bathrooms,
+//     } = req.body;
+//     console.log(title);
+//     const imageFiles = req.files;
+
+//     const imageUrls = [];
+
+//     for (const file of imageFiles) {
+//       const uploadResult = await cloudinary.uploader.upload(file.path, {
+//         folder: "StayFinder/Listings",
+//         resource_type: "image",
+//       });
+
+//       imageUrls.push(uploadResult.secure_url);
+//     }
+//     const rating = (Math.random() * (5 - 4) + 4).toFixed(1); // gives a float between 4.0 and 5.0
+//     const review = Math.floor(Math.random() * 50) + 1; // random integer between 1 and 50
+
+//     const newListing = await Listing.create({
+//       title,
+//       description,
+//       location,
+//       category,
+//       latitude,
+//       longitude,
+//       price,
+//       rating,
+//       review,
+//       guests,
+//       bedrooms,
+//       bathrooms,
+//       images: imageUrls,
+//       hostId: req.body.userId, // assuming user is authenticated
+//     });
+
+//     return res
+//       .status(201)
+//       .json({ success: true, message: "Listing Added", listing: newListing });
+//   } catch (error) {
+//     console.error("Error creating listing:", error);
+//     return res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
+
 const createListing = async (req, res) => {
   try {
     const {
@@ -83,21 +140,18 @@ const createListing = async (req, res) => {
       bedrooms,
       bathrooms,
     } = req.body;
-    console.log(title);
-    const imageFiles = req.files;
 
+    const imageFiles = req.files;
     const imageUrls = [];
 
     for (const file of imageFiles) {
-      const uploadResult = await cloudinary.uploader.upload(file.path, {
-        folder: "StayFinder/Listings",
-        resource_type: "image",
-      });
-
-      imageUrls.push(uploadResult.secure_url);
+      const remotePath = `listings/${Date.now()}-${file.originalname}`;
+      const uploadedUrl = await uploadToBunnyNet(file.path, remotePath);
+      imageUrls.push(uploadedUrl);
     }
-    const rating = (Math.random() * (5 - 4) + 4).toFixed(1); // gives a float between 4.0 and 5.0
-    const review = Math.floor(Math.random() * 50) + 1; // random integer between 1 and 50
+
+    const rating = (Math.random() * (5 - 4) + 4).toFixed(1); // 4.0 to 5.0
+    const review = Math.floor(Math.random() * 50) + 1; // 1 to 50
 
     const newListing = await Listing.create({
       title,
@@ -116,14 +170,80 @@ const createListing = async (req, res) => {
       hostId: req.body.userId, // assuming user is authenticated
     });
 
-    return res
-      .status(201)
-      .json({ success: true, message: "Listing Added", listing: newListing });
+    return res.status(201).json({
+      success: true,
+      message: "Listing Added",
+      listing: newListing,
+    });
   } catch (error) {
     console.error("Error creating listing:", error);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+// const editListing = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     const {
+//       title,
+//       description,
+//       location,
+//       latitude,
+//       longitude,
+//       price,
+//       guests,
+//       bedrooms,
+//       bathrooms,
+//     } = req.body;
+//     console.log(id);
+//     const listing = await Listing.findById(id);
+//     if (!listing) {
+//       return res
+//         .status(404)
+//         .json({ success: false, message: "Listing not found" });
+//     }
+
+//     // Upload new images if any
+//     let imageUrls = listing.images; // existing images
+//     const newImageFiles = req.files;
+
+//     if (newImageFiles && newImageFiles.length > 0) {
+//       imageUrls = [];
+
+//       for (const file of newImageFiles) {
+//         const result = await cloudinary.uploader.upload(file.path, {
+//           folder: "StayFinder/Listings",
+//           resource_type: "image",
+//         });
+//         imageUrls.push(result.secure_url);
+//       }
+//     }
+
+//     // Update the listing
+//     listing.title = title || listing.title;
+//     listing.description = description || listing.description;
+//     listing.location = location || listing.location;
+//     listing.latitude = latitude || listing.latitude;
+//     listing.longitude = longitude || listing.longitude;
+//     listing.price = price || listing.price;
+//     listing.guests = guests || listing.guests;
+//     listing.bedrooms = bedrooms || listing.bedrooms;
+//     listing.bathrooms = bathrooms || listing.bathrooms;
+//     listing.images = imageUrls;
+
+//     await listing.save();
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Listing updated successfully",
+//       listing,
+//     });
+//   } catch (error) {
+//     console.error("Error updating listing:", error);
+//     res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
 
 const editListing = async (req, res) => {
   try {
@@ -140,7 +260,7 @@ const editListing = async (req, res) => {
       bedrooms,
       bathrooms,
     } = req.body;
-    console.log(id);
+
     const listing = await Listing.findById(id);
     if (!listing) {
       return res
@@ -148,23 +268,21 @@ const editListing = async (req, res) => {
         .json({ success: false, message: "Listing not found" });
     }
 
-    // Upload new images if any
-    let imageUrls = listing.images; // existing images
+    // 🔁 Upload new images if any
+    let imageUrls = listing.images; // preserve existing images
     const newImageFiles = req.files;
 
     if (newImageFiles && newImageFiles.length > 0) {
       imageUrls = [];
 
       for (const file of newImageFiles) {
-        const result = await cloudinary.uploader.upload(file.path, {
-          folder: "StayFinder/Listings",
-          resource_type: "image",
-        });
-        imageUrls.push(result.secure_url);
+        const remotePath = `listings/${id}-${Date.now()}-${file.originalname}`;
+        const uploadedUrl = await uploadToBunnyNet(file.path, remotePath);
+        imageUrls.push(uploadedUrl);
       }
     }
 
-    // Update the listing
+    // ✅ Update fields
     listing.title = title || listing.title;
     listing.description = description || listing.description;
     listing.location = location || listing.location;

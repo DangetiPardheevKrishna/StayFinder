@@ -123,7 +123,7 @@ const WishlistCard = ({ listing: property }) => {
               {/* Price - Always Visible */}
               <div className="mt-3">
                 <span className="text-lg font-bold text-red-600">
-                  ${property.price.toLocaleString()}
+                  ₹{property.price.toLocaleString()}
                 </span>
                 <span className="text-gray-500 text-sm ml-1">/ night</span>
               </div>
