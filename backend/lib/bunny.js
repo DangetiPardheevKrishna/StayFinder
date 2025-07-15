@@ -10,10 +10,11 @@ export const BUNNY_PULL_ZONE_URL = process.env.BUNNY_PULL_ZONE_URL;
 export async function uploadToBunnyNet(localPath, remotePath) {
   return new Promise((resolve, reject) => {
     const readStream = fs.createReadStream(localPath);
+
     const options = {
       method: "PUT",
       host: BUNNY_STORAGE_HOST,
-      path: `/${BUNNY_STORAGE_ZONE}/${remotePath}`,
+      path: `/${BUNNY_STORAGE_ZONE}/${encodeURI(remotePath)}`, // <-- fix here
       headers: {
         AccessKey: BUNNY_API_KEY,
         "Content-Type": "application/octet-stream",

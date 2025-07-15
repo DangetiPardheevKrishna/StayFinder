@@ -36,7 +36,9 @@ import TailSpinLoader from "../components/Loader";
 import MapView from "../components/MapView";
 import useWishlist from "../hooks/useWishlist";
 import HostInfo from "../components/listing/HostInfo";
+
 import ImageGallery from "../components/listing/ImageGallery";
+
 const Listing = () => {
   const { user } = useContext(AppContext);
   const { token } = useContext(AppContext);
@@ -89,7 +91,7 @@ const Listing = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
             {listing.title}
           </h1>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <div className="flex items-center mt-2">
               <div className="flex items-center mr-4">
                 <Star className="w-5 h-5 fill-[#ff385c] text-[#ff385c] mr-1" />
@@ -125,6 +127,55 @@ const Listing = () => {
                     <Heart className="w-5 h-5 text-gray-700" />
                     <p className="text-sm font-medium text-gray-700">Save</p>
                   </div>
+                )}
+              </div>
+            )}
+          </div> */}
+
+          <div className="flex flex-row justify-between items-center flex-wrap gap-2 sm:gap-4 mt-2">
+            {/* Rating + Location */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4">
+              <div className="flex items-center text-sm sm:text-base">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-[#ff385c] text-[#ff385c] mr-1" />
+                <span className="font-medium">{listing.rating}</span>
+                <span className="text-gray-500 ml-1">
+                  ({listing.reviewCount} reviews)
+                </span>
+              </div>
+
+              <div className="flex items-center text-sm sm:text-base">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 mr-1" />
+                <span className="text-gray-700">{listing.location}</span>
+              </div>
+            </div>
+
+            {/* Wishlist Button */}
+            {user && (
+              <div
+                className="bg-white/90 rounded-full p-2 px-3 sm:px-4 shadow-sm flex items-center gap-2 cursor-pointer transition-all duration-300 hover:bg-white/70 hover:backdrop-blur-md hover:shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-white/30"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleWishlist(listing._id);
+                }}
+              >
+                {wishlistItem ? (
+                  <>
+                    <Heart
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-[#ff385c]"
+                      fill="#ff385c"
+                      stroke="#ff385c"
+                    />
+                    <p className="text-xs sm:text-sm font-medium text-gray-700">
+                      Saved
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                    <p className="text-xs sm:text-sm font-medium text-gray-700">
+                      Save
+                    </p>
+                  </>
                 )}
               </div>
             )}

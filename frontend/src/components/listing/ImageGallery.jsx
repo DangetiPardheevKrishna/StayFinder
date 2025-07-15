@@ -784,6 +784,162 @@
 //   );
 // }
 
+// import { useState, useEffect } from "react";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
+
+// export default function HotelGallery({ images = [] }) {
+//   const [isGridOpen, setIsGridOpen] = useState(false);
+//   const [isSliderOpen, setIsSliderOpen] = useState(false);
+//   const [sliderIndex, setSliderIndex] = useState(0);
+
+//   const openSliderFromGrid = (index) => {
+//     setSliderIndex(index);
+//     setIsSliderOpen(true);
+//     setIsGridOpen(false);
+//   };
+
+//   const sliderSettings = {
+//     initialSlide: sliderIndex,
+//     dots: true,
+//     infinite: true,
+//     speed: 500,
+//     slidesToShow: 1,
+//     slidesToScroll: 1,
+//     nextArrow: <NextArrow />,
+//     prevArrow: <PrevArrow />,
+//   };
+
+//   function NextArrow({ onClick }) {
+//     return (
+//       <button
+//         onClick={onClick}
+//         className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md"
+//       >
+//         <FiChevronRight className="text-xl text-gray-700" />
+//       </button>
+//     );
+//   }
+
+//   function PrevArrow({ onClick }) {
+//     return (
+//       <button
+//         onClick={onClick}
+//         className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md"
+//       >
+//         <FiChevronLeft className="text-xl text-gray-700" />
+//       </button>
+//     );
+//   }
+
+//   return (
+//     <>
+//       {/* === Top Two-Column Layout === */}
+//       <div className="grid grid-cols-3 gap-2 rounded-xl overflow-hidden">
+//         {/* === Main Large Image === */}
+//         <div className="col-span-2">
+//           <img
+//             src={images[0]}
+//             alt="Main"
+//             className="w-full h-[420px] object-cover rounded cursor-pointer"
+//             onClick={() => setIsGridOpen(true)}
+//           />
+//         </div>
+
+//         {/* === Right Two Small Images (Stacked) === */}
+//         <div className="flex flex-col gap-2">
+//           {images.slice(1, 3).map((img, idx) => (
+//             <img
+//               key={idx}
+//               src={img}
+//               alt={`side-img-${idx}`}
+//               className="w-full h-[204px] object-cover rounded cursor-pointer"
+//               onClick={() => setIsGridOpen(true)}
+//             />
+//           ))}
+//         </div>
+//       </div>
+
+//       {/* === Bottom Thumbnails Row === */}
+//       <div className="grid grid-cols-5 gap-2 mt-2">
+//         {images.slice(3, 7).map((img, idx) => (
+//           <img
+//             key={idx}
+//             src={img}
+//             alt={`thumb-${idx}`}
+//             className="w-full h-[100px] object-cover rounded cursor-pointer"
+//             onClick={() => setIsGridOpen(true)}
+//           />
+//         ))}
+
+//         {/* "+X photos" */}
+//         {images.length > 7 && (
+//           <div
+//             className="w-full h-[100px] bg-black bg-opacity-60 text-white flex items-center justify-center text-sm font-semibold rounded cursor-pointer"
+//             onClick={() => setIsGridOpen(true)}
+//           >
+//             +{images.length - 7} photos
+//           </div>
+//         )}
+//       </div>
+
+//       {/* === Grid Modal === */}
+//       {isGridOpen && (
+//         <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-6">
+//           <div className="bg-white max-w-6xl w-full rounded-lg overflow-auto p-6 relative max-h-[90vh]">
+//             <h2 className="text-lg font-semibold mb-4 text-gray-800">
+//               All Photos
+//             </h2>
+//             <button
+//               onClick={() => setIsGridOpen(false)}
+//               className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+//             >
+//               <FiX size={24} />
+//             </button>
+//             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 overflow-y-auto">
+//               {images.map((img, index) => (
+//                 <img
+//                   key={index}
+//                   src={img}
+//                   alt={`grid-img-${index}`}
+//                   className="w-full h-32 object-cover rounded cursor-pointer hover:scale-105 transition"
+//                   onClick={() => openSliderFromGrid(index)}
+//                 />
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* === Slider Modal === */}
+//       {isSliderOpen && (
+//         <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4">
+//           <div className="relative w-full max-w-4xl">
+//             <button
+//               onClick={() => setIsSliderOpen(false)}
+//               className="absolute top-4 right-4 text-white z-10"
+//             >
+//               <FiX size={28} />
+//             </button>
+//             <Slider {...sliderSettings}>
+//               {images.map((img, idx) => (
+//                 <div key={idx} className="flex items-center justify-center">
+//                   <img
+//                     src={img}
+//                     alt={`Slide ${idx}`}
+//                     className="w-full max-h-[80vh] object-contain mx-auto"
+//                   />
+//                 </div>
+//               ))}
+//             </Slider>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
 import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -794,6 +950,18 @@ export default function HotelGallery({ images = [] }) {
   const [isGridOpen, setIsGridOpen] = useState(false);
   const [isSliderOpen, setIsSliderOpen] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is typically the breakpoint for md in Tailwind
+    };
+
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
 
   const openSliderFromGrid = (index) => {
     setSliderIndex(index);
@@ -834,6 +1002,84 @@ export default function HotelGallery({ images = [] }) {
     );
   }
 
+  // Mobile view - single image
+  if (isMobile) {
+    return (
+      <>
+        <div className="relative">
+          <img
+            src={images[0]}
+            alt="Main"
+            className="w-full h-[300px] object-cover rounded-lg cursor-pointer"
+            onClick={() => setIsGridOpen(true)}
+          />
+          {images.length > 1 && (
+            <button
+              onClick={() => setIsGridOpen(true)}
+              className="absolute bottom-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-medium shadow-md"
+            >
+              Show all photos
+            </button>
+          )}
+        </div>
+
+        {/* Grid Modal (same as before) */}
+        {isGridOpen && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-6">
+            <div className="bg-white max-w-6xl w-full rounded-lg overflow-auto p-6 relative max-h-[90vh]">
+              <h2 className="text-lg font-semibold mb-4 text-gray-800">
+                All Photos
+              </h2>
+              <button
+                onClick={() => setIsGridOpen(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+              >
+                <FiX size={24} />
+              </button>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 overflow-y-auto">
+                {images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`grid-img-${index}`}
+                    className="w-full h-32 object-cover rounded cursor-pointer hover:scale-105 transition"
+                    onClick={() => openSliderFromGrid(index)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Slider Modal (same as before) */}
+        {isSliderOpen && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4">
+            <div className="relative w-full max-w-4xl">
+              <button
+                onClick={() => setIsSliderOpen(false)}
+                className="absolute top-4 right-4 text-white z-10"
+              >
+                <FiX size={28} />
+              </button>
+              <Slider {...sliderSettings}>
+                {images.map((img, idx) => (
+                  <div key={idx} className="flex items-center justify-center">
+                    <img
+                      src={img}
+                      alt={`Slide ${idx}`}
+                      className="w-full max-h-[80vh] object-contain mx-auto"
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  // Desktop/tablet view - original grid layout
   return (
     <>
       {/* === Top Two-Column Layout === */}
